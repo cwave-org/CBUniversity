@@ -78,7 +78,10 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
         state: { detailObj: listObj },
       });
     } else {
-      alert("접근 권한이 없습니다.");
+      var an=window.confirm("로그인후 이용 가능합니다. 로그인하시겠습니까?");
+        if (an){
+            navigate("/auth");
+        }
     }
   };
 
