@@ -22,7 +22,7 @@ const Navigation = ({ userObj }) => {
             >
               {" "}
               &nbsp;&nbsp;
-              <img width="150px" src="img/공구대학교.png" alt="로고"></img>
+              <img width="150px" src="img/공구대학교@2x.png" alt="로고"></img>
             </Link>
           
       </nav>
