@@ -12,14 +12,15 @@
 }
 
 .cobuyingItem {
-  text-align: center;
-  display: flex;
-  width: 10rem;
-  height: 10rem;
+  /* margin-top: 10px; */
+  /* text-align: center; */
+  /* display: flex; */
+  width: 90%;
+  height: 85%;
 }
 .deadline {
   font-size: xx-small;
 }
 .name {
-  font-size: small;
+  /* font-size: small; */
 }

@@ -44,7 +44,7 @@ const Navigation = ({ userObj }) => {
             >
               {" "}
               &nbsp;&nbsp;
-              <img width="150px" src="img/CBU1.png"></img>
+              <img width="150px" src="img/공구대학교.png" alt="로고"></img>
             </Link>
           </li>
           <li>

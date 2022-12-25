@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faStar } from "@fortawesome/free-solid-svg-icons";
+// import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { dbService } from "../fbase";
-
+import styled from "styled-components";
 const CobuyingItem = ({ userObj, listObj, isOwner }) => {
   let navigate = useNavigate();
   let today = new Date();
@@ -44,7 +44,7 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
         });
       });
   }, []);
-
+  console.log(listObj);
   // 스크랩 기능
   const check = async (event) => {
     setChecked((current) => !current);
@@ -97,38 +97,52 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
               justify: "center",
             }}
           >
-            {userObj != null ? (
+            {userObj != null && 
               <div className="home_scr">
                 {!checked ? (
-                  <FontAwesomeIcon
-                    className="fa-globe"
-                    icon={faStar}
+                  <img 
+                    src="img/star1.png" 
+                    alt="스크랩전"
+                    style={{width:"5vw"}}
                     onClick={check}
-                    size="2x"
-                    color={"#ffffff"}
-                    aria-hidden="true"
-                  ></FontAwesomeIcon>
+                    />
+                  // <FontAwesomeIcon
+                  //   className="fa-globe"
+                  //   icon={faStar}
+                  //   onClick={check}
+                  //   size="2x"
+                  //   color={"#ffffff"}
+                  //   aria-hidden="true"
+                  // ></FontAwesomeIcon>
                 ) : (
-                  <FontAwesomeIcon
-                    className="fa-globe"
-                    icon={FaStarRegular}
+                  <img 
+                    src="img/star.png" 
+                    alt="스크랩후" 
+                    style={{width:"5vw"}}
                     onClick={check}
-                    size="2x"
-                    color={"#ffffff"}
-                  ></FontAwesomeIcon>
+                    />
+
+                  // <FontAwesomeIcon
+                  //   className="fa-globe"
+                  //   icon={FaStarRegular}
+                  //   onClick={check}
+                  //   size="2x"
+                  //   color={"#ffffff"}
+                  // ></FontAwesomeIcon>
                 )}
               </div>
-            ) : (
-              <></>
-            )}
+            }
             <div onClick={onDetaillistClick}>
               {listObj.attachmentUrl ? (
                 <img
                   style={{
+                    // paddingBottom:"0%",
                     width: "100%",
-                    height: "85px",
-                    marginBottom: 5,
+                    // height: "!important",
+                    // marginBottom: 5,
                     borderRadius: 10,
+                    aspectRatio: "1/1",
+                    backgroundColor:"white"
                   }}
                   alt="썸네일"
                   src={listObj.attachmentUrl}
@@ -137,21 +151,22 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
                 <>
                   <img
                     alt="썸네일"
-                    style={{ width: "100%", height: "40%", marginBottom: 5 }}
+                    style={{ 
+                      width: "100%", 
+                      borderRadius: 10,
+                      aspectRatio: "1/1",
+                      backgroundColor:"white"
+                    }}
                     src="img/transparent.png"
                   />
                 </>
               )}
-              <div className="name">
-                {
-                  <>
-                    {listObj.itemname}
-                    <br />
-                    {/* 분류: {listObj.item} */}
-                  </>
-                }
-              </div>
-              <div className="deadline">{listObj.deadline}까지</div>
+              <Item>
+                {listObj.itemname}
+              </Item>
+              <Price>
+                {listObj.deadline}
+              </Price>
             </div>
           </div>
           ):(
@@ -168,33 +183,33 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
             <div onClick={onDetaillistClick}>
               {listObj.attachmentUrl ? (
                 <img
-                  style={{
-                    width: "80%",
-                    height: "80px",
-                    marginBottom: 5,
-                    borderRadius: 10,
-                  }}
+                style={{ 
+                  width: "100%", 
+                  borderRadius: 10,
+                  aspectRatio: "1/1",
+                  backgroundColor:"white"
+                }}
                   alt="썸네일"
                   src={listObj.attachmentUrl}
                 />
               ) : (
                 <>
                   <img
-                    style={{ width: "100%", height: "40%", marginBottom: 5 }}
+                    style={{ 
+                      width: "100%", 
+                      borderRadius: 10,
+                      aspectRatio: "1/1",
+                      backgroundColor:"white"
+                    }}
                     src="img/transparent.png"
                     alt="로딩"
                   />
                 </>
               )}
-              <div>(공구 조기 마감)</div>
-              <div className="name">
-                {
-                  <>
-                    {listObj.itemname}
-                    <br />
-                  </>
-                }
-              </div>
+              <Item>
+                {listObj.itemname}
+              </Item>
+              <Price>(공구 조기 마감)</Price>
             </div>
           </div>
           )
@@ -212,33 +227,33 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
             <div onClick={onDetaillistClick}>
               {listObj.attachmentUrl ? (
                 <img
-                  style={{
-                    width: "80%",
-                    height: "80px",
-                    marginBottom: 5,
-                    borderRadius: 10,
-                  }}
+                style={{ 
+                  width: "100%", 
+                  borderRadius: 10,
+                  aspectRatio: "1/1",
+                  backgroundColor:"white"
+                }}
                   alt="썸네일"
                   src={listObj.attachmentUrl}
                 />
               ) : (
                 <>
                   <img
-                    style={{ width: "100%", height: "40%", marginBottom: 5 }}
+                    style={{ 
+                      width: "100%", 
+                      borderRadius: 10,
+                      aspectRatio: "1/1",
+                      backgroundColor:"white"
+                    }}
                     src="img/transparent.png"
                     alt="로딩"
                   />
                 </>
               )}
-              <div>(공구 마감)</div>
-              <div className="name">
-                {
-                  <>
-                    {listObj.itemname}
-                    <br />
-                  </>
-                }
-              </div>
+              <Item>
+                {listObj.itemname}
+              </Item>
+              <Price>(공구 마감)</Price>
             </div>
           </div>
         )}
@@ -246,4 +261,16 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
     </div>
   );
 };
-export default CobuyingItem;
+export default CobuyingItem; 
+
+const Item=styled.div`
+  margin-top: 3px;
+  color: black;
+  font-size: 13px;
+  font-weight: 800;
+`;
+const Price=styled(Item)`
+  color:#707070;
+  margin-top: 0px;
+  font-weight: 600;
+`;

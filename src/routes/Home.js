@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import CobuyingItem from "../components/CobuyingItem";
 import { dbService } from "../fbase";
 import styled from "styled-components";
-
+import SimpleSlider from "../components/SimpleSlider";
 const PostListWrapper = styled.div`
+  margin-top: 15px;
   display: grid;
   place-items: center;
   justify-content: space-evenly;
-  font-size: small;
-  row-gap: 8x;
+  /* font-size: small; */
+  /* row-gap: 3px; */
   grid-template-columns: repeat(2, auto);
 `;
 
 const Home = ({ userObj }) => {
   const [lists, setLists] = useState([]);
+  const [img,setImg]=useState([]);
   const [joinlists, setJoinlists] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
 
@@ -33,6 +35,7 @@ const Home = ({ userObj }) => {
         }));
         setLists(listArray);
       });
+      setImg(["img/carr1.png","img/carr2.png"]);
   }, []);
 
   // 모든 joinlist 불러오기
@@ -86,17 +89,17 @@ const Home = ({ userObj }) => {
           {powersellers} 개 👑
         </p>
       </div> */}
-      <div className="home_power">
-        <a
+      {/* <div className="home_power"> */}
+        {/* <a
           style={{ textDecorationLine: "none", color: "#000000" }}
           href="https://instagram.com/cwave_?igshid=YmMyMTA2M2Y="
           target="_blank"
           rel="noreferroer noopener"
         >
           <span>공구대학교 사용법</span>
-        </a>
-      </div>
-      <br></br>
+        </a> */}
+        <SimpleSlider />
+      {/* </div> */}
 
       <PostListWrapper>
         {lists.map((list) => (
