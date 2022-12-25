@@ -4,6 +4,7 @@ import Mylist from "../components/Mylist";
 import Myscrap from "../components/Myscrap";
 import Myjoinlist from "../components/Myjoinlist";
 import MyQnA from "../components/MyQnA";
+import Footer from "../components/Footer";
 
 const Profile = ({ userObj, listObj, refreshUser }) => {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -159,6 +160,7 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
           ))}
         </div>
       </div>
+      <Footer userObj={userObj} option={"profile"}/>
     </div>
   );
 };

@@ -14,7 +14,7 @@ export const StyledSlider = styled(Slider)`
 
   .slick-slide > div {
     // 자식 안에 div
-    margin: 10px;
+    margin: 10px 5px;
     box-sizing: border-box;
   }
 
@@ -32,8 +32,8 @@ export const StyledSlider = styled(Slider)`
     transform: translate(-50%, 0);
 
     li {
-      width: 8px;
-      height: 8px;
+      width: 5px;
+      height: 5px;
       margin: 0;
 
       &:last-of-type {
@@ -46,8 +46,8 @@ export const StyledSlider = styled(Slider)`
         padding: 0;
 
         &::before {
-          width: 8px;
-          height: 8px;
+          width: 5px;
+          height: 5px;
           position: static;
           top: auto;
           left: auto;

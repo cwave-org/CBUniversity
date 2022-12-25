@@ -13,6 +13,7 @@ const SimpleSlick = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
+    arrow:false,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,

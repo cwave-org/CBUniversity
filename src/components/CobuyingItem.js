@@ -44,7 +44,7 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
         });
       });
   }, []);
-  console.log(listObj);
+
   // 스크랩 기능
   const check = async (event) => {
     setChecked((current) => !current);
@@ -267,7 +267,7 @@ const Item=styled.div`
   margin-top: 3px;
   color: black;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: bolder;
 `;
 const Price=styled(Item)`
   color:#707070;

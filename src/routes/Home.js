@@ -3,6 +3,7 @@ import CobuyingItem from "../components/CobuyingItem";
 import { dbService } from "../fbase";
 import styled from "styled-components";
 import SimpleSlider from "../components/SimpleSlider";
+import Footer from "../components/Footer";
 const PostListWrapper = styled.div`
   margin-top: 15px;
   display: grid;
@@ -115,6 +116,7 @@ const Home = ({ userObj }) => {
           />
         ))}
       </PostListWrapper>
+      <Footer userObj={userObj} option={"home"}/>
     </div>
   );
 };
