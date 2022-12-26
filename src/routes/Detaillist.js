@@ -29,6 +29,14 @@ const Btn1 = styled(Btn)`
   color: white;
   background-color: #407fff;
 `;
+const Btn2 = styled(Btn)`
+  width: 10%;
+  text-align: right;
+  margin-top: 0px;
+  border-radius: 5px;
+  color: white;
+  background-color: #407fff;
+`;
 const Detaillist = ({ userObj }) => {
   const { id } = useParams();
   const [isLodded, setIsLodded] = useState(false);
@@ -522,9 +530,7 @@ const Detaillist = ({ userObj }) => {
                         value={qna}
                         onChange={QnAonChange}
                       />
-                      <button type="upload_Btn" className="upload_Btn">
-                        💬
-                      </button>
+                      <Btn2 type="upload_Btn">💬</Btn2>
                     </form>
                   ) : (
                     <div className="qna_text">

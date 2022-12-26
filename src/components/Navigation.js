@@ -39,9 +39,9 @@ const Navigation = ({ userObj }) => {
               justifyContent: "right",
             }}
           >
-            <span style={{ fontSize: 10 }} onClick={logOut}>
+            <button className="default_Btn_Right3" onClick={logOut}>
               LogOut
-            </span>
+            </button>
           </Link>
         ) : (
           <> &nbsp;</>
