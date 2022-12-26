@@ -89,7 +89,7 @@ const Item = ({ listObj, isBuyer }) => {
               <FontAwesomeIcon
                 icon={faTrash}
                 size="1x"
-                color={"#C7D3F7"}
+                color={"#407FFF"}
                 title="삭제"
                 onClick={onDeleteClick}
               />

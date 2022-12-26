@@ -123,7 +123,7 @@ export default function QnA({
         </span>
         {isOwner && (
           <span className="detaillist_trashbtn" onClick={onQnADeleteClick}>
-            <FontAwesomeIcon icon={faTrash} color={"#4B59A8"} />
+            <FontAwesomeIcon icon={faTrash} color={"#407FFF"} />
           </span>
         )}
       </div>
