@@ -6,6 +6,7 @@ import SellingItemFactory from "../components/SellingItemFactory";
 import styled from "styled-components";
 import DateFactory from "../components/DateFactory";
 import DateItem from "../components/DateItem";
+import Swal from "sweetalert2";
 
 const EachContainer = styled.div`
   width: 100%;
@@ -199,12 +200,28 @@ const SellingForm = ({ userObj }) => {
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
     if (click[click.length - 1]) {
-      var result = window.confirm("정말로 폼을 제출하시겠습니까?");
-      if (result) {
-        onFormSubmit();
-      }
+      Swal.fire({
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "취소",
+        confirmButtonText: "제출",
+        confirmButtonColor: "#1f54c0",
+        text: "정말로 폼을 제출하시겠습니까?",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          onFormSubmit();
+        }
+      });
+      // var result = window.confirm("정말로 폼을 제출하시겠습니까?");
+      // if (result) {
+      //   onFormSubmit();
+      // }
     } else if (click[click.length - 1] === false) {
-      window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
+      Swal.fire({
+        icon: "error",
+        confirmButtonColor: "#1f54c0",
+        text: "상품추가 완료버튼을 눌러주셔야 제출 가능합니다.",
+      });
     }
     // } else if (!clickeddate) {
     //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");

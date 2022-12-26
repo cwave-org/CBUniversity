@@ -1,6 +1,8 @@
 import React from "react";
 import { authService, dbService, firebaseInstance } from "../fbase";
 import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 const Auth = () => {
   const navigate = useNavigate();
   const onSocialClick = async (event) => {
@@ -15,12 +17,21 @@ const Auth = () => {
     navigate("/");
   };
   const Submit = () => {
-    var result = window.confirm(
-      "사파리, 크롬, 삼성인터넷 등 웹 브라우저로 실행하셨나요?"
-    );
-    if (result) {
-      onSocialClick();
-    }
+    Swal.fire({
+      icon: "question",
+      confirmButtonColor: "#1f54c0",
+      text: "사파리, 크롬, 삼성인터넷 등 웹 브라우저로 실행하셨나요?",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onSocialClick();
+      }
+    });
+    // var result = window.confirm(
+    //   "사파리, 크롬, 삼성인터넷 등 웹 브라우저로 실행하셨나요?"
+    // );
+    // if (result) {
+    //   onSocialClick();
+    // }
   };
 
   return (

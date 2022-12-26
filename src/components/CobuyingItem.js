@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 // import { faStar as FaStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { dbService } from "../fbase";
 import styled from "styled-components";
+import Swal from "sweetalert2";
+
 const CobuyingItem = ({ userObj, listObj, isOwner }) => {
   let navigate = useNavigate();
   let today = new Date();
@@ -32,17 +34,19 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
   curday.setSeconds(curday.getSeconds() + 59);
 
   useEffect(() => {
-    dbService
-      .doc(`startlist/${listObj.id}`)
-      .collection("scrap")
-      .onSnapshot((snapshot) => {
-        snapshot.docs.map((doc) => {
-          // 스크랩 여부 확인 후 체크박스 조정(?)
-          if (doc.id === userObj.uid) {
-            setChecked(false);
-          }
+    if (userObj != null) {
+      dbService
+        .doc(`startlist/${listObj.id}`)
+        .collection("scrap")
+        .onSnapshot((snapshot) => {
+          snapshot.docs.map((doc) => {
+            // 스크랩 여부 확인 후 체크박스 조정(?)
+            if (doc.id === userObj.uid) {
+              setChecked(false);
+            }
+          });
         });
-      });
+    }
   }, []);
 
   // 스크랩 기능
@@ -78,10 +82,23 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
         state: { detailObj: listObj },
       });
     } else {
-      var an=window.confirm("로그인후 이용 가능합니다. 로그인하시겠습니까?");
-        if (an){
-            navigate("/auth");
+      Swal.fire({
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "취소",
+        confirmButtonText: "로그인",
+        confirmButtonColor: "#1f54c0",
+        text: "로그인후 이용 가능합니다. 로그인하시겠습니까?",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/auth");
         }
+      });
+
+      // var an = window.confirm("로그인후 이용 가능합니다. 로그인하시겠습니까?");
+      // if (an) {
+      //   navigate("/auth");
+      // }
     }
   };
 
@@ -90,131 +107,125 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
     <div className="cobuyingItem">
       <>
         {today < curday ? (
-          listObj.done===false?(
+          listObj.done === false ? (
             <div
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justify: "center",
-            }}
-          >
-            {userObj != null && 
-              <div className="home_scr">
-                {!checked ? (
-                  <img 
-                    src="img/star1.png" 
-                    alt="스크랩전"
-                    style={{width:"5vw"}}
-                    onClick={check}
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justify: "center",
+              }}
+            >
+              {userObj != null && (
+                <div className="home_scr">
+                  {!checked ? (
+                    <img
+                      src="img/star1.png"
+                      alt="스크랩전"
+                      style={{ width: "5vw" }}
+                      onClick={check}
                     />
-                  // <FontAwesomeIcon
-                  //   className="fa-globe"
-                  //   icon={faStar}
-                  //   onClick={check}
-                  //   size="2x"
-                  //   color={"#ffffff"}
-                  //   aria-hidden="true"
-                  // ></FontAwesomeIcon>
-                ) : (
-                  <img 
-                    src="img/star.png" 
-                    alt="스크랩후" 
-                    style={{width:"5vw"}}
-                    onClick={check}
+                  ) : (
+                    // <FontAwesomeIcon
+                    //   className="fa-globe"
+                    //   icon={faStar}
+                    //   onClick={check}
+                    //   size="2x"
+                    //   color={"#ffffff"}
+                    //   aria-hidden="true"
+                    // ></FontAwesomeIcon>
+                    <img
+                      src="img/star.png"
+                      alt="스크랩후"
+                      style={{ width: "5vw" }}
+                      onClick={check}
                     />
 
-                  // <FontAwesomeIcon
-                  //   className="fa-globe"
-                  //   icon={FaStarRegular}
-                  //   onClick={check}
-                  //   size="2x"
-                  //   color={"#ffffff"}
-                  // ></FontAwesomeIcon>
-                )}
-              </div>
-            }
-            <div onClick={onDetaillistClick}>
-              {listObj.attachmentUrl ? (
-                <img
-                  style={{
-                    // paddingBottom:"0%",
-                    width: "100%",
-                    // height: "!important",
-                    // marginBottom: 5,
-                    borderRadius: 10,
-                    aspectRatio: "1/1",
-                    backgroundColor:"white"
-                  }}
-                  alt="썸네일"
-                  src={listObj.attachmentUrl}
-                />
-              ) : (
-                <>
+                    // <FontAwesomeIcon
+                    //   className="fa-globe"
+                    //   icon={FaStarRegular}
+                    //   onClick={check}
+                    //   size="2x"
+                    //   color={"#ffffff"}
+                    // ></FontAwesomeIcon>
+                  )}
+                </div>
+              )}
+              <div onClick={onDetaillistClick}>
+                {listObj.attachmentUrl ? (
                   <img
+                    style={{
+                      // paddingBottom:"0%",
+                      width: "100%",
+                      // height: "!important",
+                      // marginBottom: 5,
+                      borderRadius: 10,
+                      aspectRatio: "1/1",
+                      backgroundColor: "white",
+                    }}
                     alt="썸네일"
-                    style={{ 
-                      width: "100%", 
-                      borderRadius: 10,
-                      aspectRatio: "1/1",
-                      backgroundColor:"white"
-                    }}
-                    src="img/transparent.png"
+                    src={listObj.attachmentUrl}
                   />
-                </>
-              )}
-              <Item>
-                {listObj.itemname}
-              </Item>
-              <Price>
-                {listObj.deadline}
-              </Price>
+                ) : (
+                  <>
+                    <img
+                      alt="썸네일"
+                      style={{
+                        width: "100%",
+                        borderRadius: 10,
+                        aspectRatio: "1/1",
+                        backgroundColor: "white",
+                      }}
+                      src="img/transparent.png"
+                    />
+                  </>
+                )}
+                <Item>{listObj.itemname}</Item>
+                <Price>{listObj.deadline}</Price>
+              </div>
             </div>
-          </div>
-          ):(
+          ) : (
             <div
-            className="endthing"
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justify: "center",
-            }}
-          >
-            <div onClick={onDetaillistClick}>
-              {listObj.attachmentUrl ? (
-                <img
-                style={{ 
-                  width: "100%", 
-                  borderRadius: 10,
-                  aspectRatio: "1/1",
-                  backgroundColor:"white"
-                }}
-                  alt="썸네일"
-                  src={listObj.attachmentUrl}
-                />
-              ) : (
-                <>
+              className="endthing"
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justify: "center",
+              }}
+            >
+              <div onClick={onDetaillistClick}>
+                {listObj.attachmentUrl ? (
                   <img
-                    style={{ 
-                      width: "100%", 
+                    style={{
+                      width: "100%",
                       borderRadius: 10,
                       aspectRatio: "1/1",
-                      backgroundColor:"white"
+                      backgroundColor: "white",
                     }}
-                    src="img/transparent.png"
-                    alt="로딩"
+                    alt="썸네일"
+                    src={listObj.attachmentUrl}
                   />
-                </>
-              )}
-              <Item>
-                {listObj.itemname}
-              </Item>
-              <Price>(공구 조기 마감)</Price>
+                ) : (
+                  <>
+                    <img
+                      style={{
+                        width: "100%",
+                        borderRadius: 10,
+                        aspectRatio: "1/1",
+                        backgroundColor: "white",
+                      }}
+                      src="img/transparent.png"
+                      alt="로딩"
+                    />
+                  </>
+                )}
+                <Item>{listObj.itemname}</Item>
+                <Price>(공구 조기 마감)</Price>
+              </div>
             </div>
-          </div>
           )
         ) : (
           <div
@@ -230,32 +241,30 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
             <div onClick={onDetaillistClick}>
               {listObj.attachmentUrl ? (
                 <img
-                style={{ 
-                  width: "100%", 
-                  borderRadius: 10,
-                  aspectRatio: "1/1",
-                  backgroundColor:"white"
-                }}
+                  style={{
+                    width: "100%",
+                    borderRadius: 10,
+                    aspectRatio: "1/1",
+                    backgroundColor: "white",
+                  }}
                   alt="썸네일"
                   src={listObj.attachmentUrl}
                 />
               ) : (
                 <>
                   <img
-                    style={{ 
-                      width: "100%", 
+                    style={{
+                      width: "100%",
                       borderRadius: 10,
                       aspectRatio: "1/1",
-                      backgroundColor:"white"
+                      backgroundColor: "white",
                     }}
                     src="img/transparent.png"
                     alt="로딩"
                   />
                 </>
               )}
-              <Item>
-                {listObj.itemname}
-              </Item>
+              <Item>{listObj.itemname}</Item>
               <Price>(공구 마감)</Price>
             </div>
           </div>
@@ -264,16 +273,16 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
     </div>
   );
 };
-export default CobuyingItem; 
+export default CobuyingItem;
 
-const Item=styled.div`
+const Item = styled.div`
   margin-top: 3px;
   color: black;
   font-size: 13px;
   font-weight: bolder;
 `;
-const Price=styled(Item)`
-  color:#707070;
+const Price = styled(Item)`
+  color: #707070;
   margin-top: 0px;
   font-weight: 600;
 `;

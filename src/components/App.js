@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { authService, dbService } from "../fbase";
 import { deleteUser } from "firebase/auth";
-import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -23,7 +23,11 @@ function App() {
         if (emailform !== "sookmyung.ac.kr") {
           deleteUser(user);
           setUserObj(null);
-          alert("숙명 메일로만 로그인이 가능합니다.");
+          Swal.fire({
+            icon: "error",
+            confirmButtonColor: "#1f54c0",
+            text: "숙명 메일로만 로그인이 가능합니다.",
+          });
         } else {
         }
       } else {

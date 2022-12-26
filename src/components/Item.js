@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
 const Item = ({ listObj, isBuyer }) => {
   const [checked, setChecked] = useState(!listObj.deposit_complete);
@@ -30,24 +31,39 @@ const Item = ({ listObj, isBuyer }) => {
   };
 
   const onDeleteClick = async () => {
-    const ok = window.confirm("정말 삭제하실 건가요?");
+    Swal.fire({
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "삭제",
+      confirmButtonColor: "#1f54c0",
+      text: "정말 삭제하실 건가요?",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        setDeleted((current) => !current);
+        await dbService.doc(`joinlist/${listObj.id}`).update({
+          deleted: deleted,
+        });
+      }
+    });
+    //const ok = window.confirm("정말 삭제하실 건가요?");
     /* firebase에서 삭제하는 코드
     if (ok) {
       await dbService.doc(`joinlist/${listObj.id}`).delete();
     }
     */
 
-    if(ok){
-      setDeleted((current) => !current);
-      await dbService.doc(`joinlist/${listObj.id}`).update({
-        deleted: deleted,
-      });
-    }
+    // if(ok){
+    //   setDeleted((current) => !current);
+    //   await dbService.doc(`joinlist/${listObj.id}`).update({
+    //     deleted: deleted,
+    //   });
+    // }
   };
 
   return (
     <div className="Itemclass">
-      {isBuyer && !deleted? (
+      {isBuyer && !deleted ? (
         <>
           <div style={{ display: "flex", flexDirection: "row", fontSize: 12 }}>
             <span style={{ width: "16%" }}>{`${listObj.totalprice}`}원</span>

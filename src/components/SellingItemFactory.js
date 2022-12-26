@@ -4,6 +4,7 @@ import SellingItem from "./SellingItem";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import EachDetail from "./SOOM/EachDetail";
+import Swal from "sweetalert2";
 
 const Load = styled.div`
   width: 100%;
@@ -90,41 +91,82 @@ const SellingItemFactory = (props) => {
   };
 
   const onClickDone = async () => {
-    var an = window.confirm(
-      "완료를 누르면 각 상품 목록은 더 이상 수정이 불가합니다. 완료하시겠습니까?"
-    );
-    if (an) {
-      onDataSet();
-      isLoading(true);
-      // console.log(data1);
-      for (var i = 0; i < data.length; i++) {
-        let attachmentUrl = "";
-        for (var j = 0; j < data[i].itemDetails.length; j++) {
-          // console.log(data[i].itemDetails);
-          for (var k = 0; k < data1[i].itemDetails[j].beforeurl.length; k++) {
-            //사진 url변경
-            if (data[i].itemDetails[j].beforeurl[k] !== "") {
-              const attachmentRef = storageService
-                .ref()
-                .child(`${props.userObj.uid}/${uuidv4()}`);
-              const response = await attachmentRef.putString(
-                data[i].itemDetails[j].beforeurl[k],
-                "data_url"
-              );
-              attachmentUrl = await response.ref.getDownloadURL();
-              data[i].itemDetails[j].url[k] = attachmentUrl;
-              data[i].itemDetails[j].beforeurl[k] = "";
+    Swal.fire({
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "완료",
+      confirmButtonColor: "#1f54c0",
+      text: "완료를 누르면 각 상품 목록은 더 이상 수정이 불가합니다. 완료하시겠습니까?",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        onDataSet();
+        isLoading(true);
+        // console.log(data1);
+        for (var i = 0; i < data.length; i++) {
+          let attachmentUrl = "";
+          for (var j = 0; j < data[i].itemDetails.length; j++) {
+            // console.log(data[i].itemDetails);
+            for (var k = 0; k < data1[i].itemDetails[j].beforeurl.length; k++) {
+              //사진 url변경
+              if (data[i].itemDetails[j].beforeurl[k] !== "") {
+                const attachmentRef = storageService
+                  .ref()
+                  .child(`${props.userObj.uid}/${uuidv4()}`);
+                const response = await attachmentRef.putString(
+                  data[i].itemDetails[j].beforeurl[k],
+                  "data_url"
+                );
+                attachmentUrl = await response.ref.getDownloadURL();
+                data[i].itemDetails[j].url[k] = attachmentUrl;
+                data[i].itemDetails[j].beforeurl[k] = "";
+              }
             }
           }
         }
+        await dbService
+          .doc(`itemlist/${props.itemID}`)
+          .set({ data })
+          .then(() => {});
+        isLoading(false);
+        getData();
       }
-      await dbService
-        .doc(`itemlist/${props.itemID}`)
-        .set({ data })
-        .then(() => {});
-      isLoading(false);
-      getData();
-    }
+    });
+    // var an = window.confirm(
+    //   "완료를 누르면 각 상품 목록은 더 이상 수정이 불가합니다. 완료하시겠습니까?"
+    // );
+    // if (an) {
+    //   onDataSet();
+    //   isLoading(true);
+    //   // console.log(data1);
+    //   for (var i = 0; i < data.length; i++) {
+    //     let attachmentUrl = "";
+    //     for (var j = 0; j < data[i].itemDetails.length; j++) {
+    //       // console.log(data[i].itemDetails);
+    //       for (var k = 0; k < data1[i].itemDetails[j].beforeurl.length; k++) {
+    //         //사진 url변경
+    //         if (data[i].itemDetails[j].beforeurl[k] !== "") {
+    //           const attachmentRef = storageService
+    //             .ref()
+    //             .child(`${props.userObj.uid}/${uuidv4()}`);
+    //           const response = await attachmentRef.putString(
+    //             data[i].itemDetails[j].beforeurl[k],
+    //             "data_url"
+    //           );
+    //           attachmentUrl = await response.ref.getDownloadURL();
+    //           data[i].itemDetails[j].url[k] = attachmentUrl;
+    //           data[i].itemDetails[j].beforeurl[k] = "";
+    //         }
+    //       }
+    //     }
+    //   }
+    //   await dbService
+    //     .doc(`itemlist/${props.itemID}`)
+    //     .set({ data })
+    //     .then(() => {});
+    //   isLoading(false);
+    //   getData();
+    // }
   };
   const getData = async () => {
     await dbService

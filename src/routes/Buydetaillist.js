@@ -5,6 +5,7 @@ import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 const Buydetaillist = () => {
   const navigate = useNavigate();
@@ -103,25 +104,52 @@ const Buydetaillist = () => {
   const toggleEditing = () => setEditing((prev) => !prev);
 
   const onSubmit = async (event) => {
-    var answer = window.confirm("정말로 수정하시겠습니까?");
-    if (answer) {
-      event.preventDefault();
-      setEditing(false);
-      await dbService.doc(`joinlist/${detailObj.id}`).update({
-        /* name: name,
-        count: count,
-        size: size,
-        address: address,
-        account_date: account_name,
-        account_name: account_date,*/
-        phonenumber: phonenumber,
-        account_re: account_re,
-        handout_date: handout_date,
-      });
-      // window.location.reload();
-    } else {
-      event.preventDefault();
-    }
+    Swal.fire({
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "수정",
+      confirmButtonColor: "#1f54c0",
+      text: "정말로 수정하시겠습니까?",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        event.preventDefault();
+        setEditing(false);
+        await dbService.doc(`joinlist/${detailObj.id}`).update({
+          /* name: name,
+          count: count,
+          size: size,
+          address: address,
+          account_date: account_name,
+          account_name: account_date,*/
+          phonenumber: phonenumber,
+          account_re: account_re,
+          handout_date: handout_date,
+        });
+        // window.location.reload();
+      } else if (result.isDismissed) {
+        event.preventDefault();
+      }
+    });
+    // var answer = window.confirm("정말로 수정하시겠습니까?");
+    // if (answer) {
+    //   event.preventDefault();
+    //   setEditing(false);
+    //   await dbService.doc(`joinlist/${detailObj.id}`).update({
+    //     /* name: name,
+    //     count: count,
+    //     size: size,
+    //     address: address,
+    //     account_date: account_name,
+    //     account_name: account_date,*/
+    //     phonenumber: phonenumber,
+    //     account_re: account_re,
+    //     handout_date: handout_date,
+    //   });
+    //   // window.location.reload();
+    // } else {
+    //   event.preventDefault();
+    // }
   };
 
   const onChange = (event) => {

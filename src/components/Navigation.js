@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../fbase";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 const Logo = styled.div`
   margin-top: 5px;
@@ -12,7 +13,18 @@ const Logo = styled.div`
 const Navigation = ({ userObj }) => {
   const navigate = useNavigate();
   const logOut = (event) => {
-    authService.signOut();
+    Swal.fire({
+      icon: "question",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "로그아웃",
+      confirmButtonColor: "#1f54c0",
+      text: "정말로 로그아웃하시겠습니까?",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        authService.signOut();
+      }
+    });
   };
   return (
     <>
