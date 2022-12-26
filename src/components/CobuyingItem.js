@@ -121,8 +121,8 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
                 <div className="home_scr">
                   {!checked ? (
                     <img
-                      src="img/star1.png"
-                      alt="스크랩전"
+                      src="img/checked_star1.png"
+                      alt="스크랩후"
                       style={{ width: "5vw" }}
                       onClick={check}
                     />
@@ -135,13 +135,13 @@ const CobuyingItem = ({ userObj, listObj, isOwner }) => {
                     //   color={"#ffffff"}
                     //   aria-hidden="true"
                     // ></FontAwesomeIcon>
+
                     <img
-                      src="img/star.png"
-                      alt="스크랩후"
+                      src="img/unChecked_star1.png"
+                      alt="스크랩전"
                       style={{ width: "5vw" }}
                       onClick={check}
                     />
-
                     // <FontAwesomeIcon
                     //   className="fa-globe"
                     //   icon={FaStarRegular}

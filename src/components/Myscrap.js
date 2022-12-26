@@ -53,13 +53,13 @@ const Myscrap = ({ listObj, userObj }) => {
               <span onClick={onClick} style={{ width: "90%" }}>
                 품목 이름: {`${listObj.itemname}`}
               </span>
-              <FontAwesomeIcon
-                icon={faStar}
+
+              <img
+                src="img/checked_star1.png"
+                alt="스크랩후"
+                style={{ width: "5vw" }}
                 onClick={check}
-                size="1x"
-                color={"#E4C6F5"}
-                style={{ width: "10%" }}
-              ></FontAwesomeIcon>
+              />
             </div>
           </>
         ) : (
