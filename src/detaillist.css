@@ -64,6 +64,8 @@ ul {
 .comment_text {
   width: 76%;
   margin-left: 12%;
+  margin-top: 1%;
+  margin-bottom: 1%;
   outline: none;
   border: 1px solid #9b9b9b;
   border-radius: 13px;
