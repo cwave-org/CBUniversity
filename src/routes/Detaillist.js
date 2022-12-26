@@ -569,7 +569,7 @@ const Detaillist = ({ userObj }) => {
 export default Detaillist;
 
 const Container = styled.div`
-  margin: 20px 8px 30px;
+  /* margin: 5px 8px 30px; */
   padding: 7px 1px;
 `;
 const DetailArea = styled.div`

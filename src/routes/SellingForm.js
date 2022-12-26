@@ -14,7 +14,12 @@ const EachContainer = styled.div`
 `;
 const EachTitle = styled.div`
   font-weight: 600;
+  margin-left: 5px;
+  margin-bottom: 1px;
+  margin-top: 5px;
   position: relative;
+  font-size: 12px;
+  color:#707070;
 `;
 const EachDetail = styled.div`
   margin-top: 1px;
@@ -26,14 +31,21 @@ const Detail1 = styled(EachDetail)`
 const DetailArea = styled.textarea`
   padding: 3px 5px;
   border-radius: 5px;
+  height: 30px;
   resize: none;
   background-color: #f6f6f6;
+  ::placeholder{
+    padding: 5px;
+    color:#c1c7d0;
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
 `;
 const Notice = styled.div`
   color: grey;
   position: absolute;
-  top: 9px;
-  left: 95px;
+  top: 5px;
+  right: 7px;
   font-size: 7px;
 `;
 const Notice2 = styled.div`
@@ -57,8 +69,8 @@ const Button = styled.button`
 `;
 const MyBtn = styled.div`
   width: fit-content;
-  margin: 5px 3px 3px;
-  padding: 0 5px;
+  margin: 3px 3px 10px 3px;
+  padding: 0 0 0 10px;
   text-align: center;
   height: 10%;
   background-color: #b5b5b5;
@@ -160,7 +172,8 @@ const SellingForm = ({ userObj }) => {
     } else if (event.target.id === "link") {
       setLink(value);
     } else if (event.target.id === "etc") {
-      if (ta.current.scrollHeight > 90) {
+      // console.log(ta.current.scrollHeight);
+      if (ta.current.scrollHeight > 78) {
         ta.current.style.height = ta.current.scrollHeight + "px";
       }
 
@@ -168,7 +181,7 @@ const SellingForm = ({ userObj }) => {
     } else if (event.target.id === "account") {
       setAccount(value);
     } else if (event.target.id === "notice") {
-      if (ta2.current.scrollHeight > 90) {
+      if (ta2.current.scrollHeight > 78) {
         ta2.current.style.height = ta2.current.scrollHeight + "px";
       }
       setNotice(value);
@@ -244,9 +257,9 @@ const SellingForm = ({ userObj }) => {
 
   return (
     <form className="openjoin_container">
-      <p>공구 열기</p>
+      {/* <p>공구 열기</p> */}
       <EachContainer>
-        <EachTitle>✔️ 상품이름</EachTitle>
+        <EachTitle>상품이름 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
         <EachDetail>
           <input
             id="itemname"
@@ -262,7 +275,7 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
 
       <EachContainer>
-        <EachTitle>✔️ 공대표 이름</EachTitle>
+        <EachTitle>공대표 이름 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
         <EachDetail>
           <input
             className="openjoin_input"
@@ -277,7 +290,7 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
 
       <EachContainer>
-        <EachTitle>✔️ 상품 대표사진</EachTitle>
+        <EachTitle>상품 대표사진 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
         <Detail1>
           <MyBtn>
             <label>
@@ -303,7 +316,7 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
 
       <EachContainer>
-        <EachTitle>✔️ 마감기한</EachTitle>
+        <EachTitle>마감기한 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
         <Detail1>
           <input
             id="deadline"
@@ -319,12 +332,37 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
 
       <EachContainer>
-        <EachTitle>✔️ 카테고리</EachTitle>
-        <EachDetail>문구류</EachDetail>
+        <EachTitle>카테고리 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
+        <EachDetailwhite>
+          <input
+            type="radio"
+            //name="theme"
+            value="moon"
+            defaultChecked
+            // onClick={onRadioClick}
+          />
+          문구류{" "}
+          <input
+            type="radio"
+            //name="theme"
+            value="cloth"
+            disabled
+            onClick={onRadioClick}
+          />
+          의류
+          {/* <input
+            type="radio"
+            //name="theme"
+            value="parcel"
+            disabled
+            onClick={onRadioClick}
+          />
+          의류 */}
+        </EachDetailwhite>
       </EachContainer>
 
       <EachContainer>
-        <EachTitle>✔️ 오픈채팅방 링크</EachTitle>
+        <EachTitle>오픈채팅방 링크 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
         <EachDetail>
           <input
             id="link"
@@ -340,7 +378,7 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
 
       <EachContainer>
-        <EachTitle>✔️ 계좌(은행/계좌번호/입금주명)</EachTitle>
+        <EachTitle>계좌(은행/계좌번호/입금주명) <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
         <EachDetail>
           <input
             id="account"
@@ -357,8 +395,8 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
 
       <EachContainer>
-        <EachTitle>✔️ 배송여부</EachTitle>
-        <EachDetail>
+        <EachTitle>배송여부 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
+        <EachDetailwhite>
           <input
             type="radio"
             //name="theme"
@@ -374,7 +412,7 @@ const SellingForm = ({ userObj }) => {
             onClick={onRadioClick}
           />
           택배배송
-        </EachDetail>
+        </EachDetailwhite>
       </EachContainer>
       {giving === 0 ? (
         <EachContainer></EachContainer>
@@ -383,9 +421,9 @@ const SellingForm = ({ userObj }) => {
       ) : (
         <EachContainer>
           <EachTitle>
-            ✔️ 현장배부 날짜
+            현장배부 날짜
             <Notice2>현장배부 날짜 및 시간을 작성해주세요</Notice2>
-          </EachTitle>
+           <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
           <EachDetail>
             {/*<DateFactory
               userObj={userObj}
@@ -403,13 +441,14 @@ const SellingForm = ({ userObj }) => {
       )}
 
       <EachContainer>
-        <EachTitle>✔️ 상세설명</EachTitle>
+        <EachTitle>상세설명 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
         <EachDetail>
           <DetailArea
             id="etc"
             className="openjoin_input"
             ref={ta}
-            rows={3}
+            // rows="10"
+            style={{height:"77px"}}
             value={etc}
             onChange={onChange}
             type="text"
@@ -420,13 +459,14 @@ const SellingForm = ({ userObj }) => {
       </EachContainer>
 
       <EachContainer>
-        <EachTitle>✔️ 주의사항</EachTitle>
+        <EachTitle>주의사항 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
         <EachDetail>
           <DetailArea
             id="notice"
             className="openjoin_input"
             ref={ta2}
-            rows={3}
+            // rows={3}
+            style={{height:"77px"}}
             value={notice}
             onChange={onChange}
             type="text"
@@ -438,8 +478,8 @@ const SellingForm = ({ userObj }) => {
 
       <EachContainer>
         <EachTitle>
-          ✔️ 상품목록 <Notice>작성후 하단의 완료버튼을 눌러주세요</Notice>
-        </EachTitle>
+          상품목록 <Notice>작성후 하단의 완료버튼을 눌러주세요</Notice>
+         <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
         <SellingItemFactory
           userObj={userObj}
           itemID={itemID}
@@ -463,3 +503,13 @@ const SellingForm = ({ userObj }) => {
   );
 };
 export default SellingForm;
+
+const EachDetailwhite = styled.div`
+  margin-top: 1px;
+  background-color: #fff;
+  padding: 0 7px 5px;
+  border-radius: 19px;
+  border: solid 1px #dedede;
+  margin-bottom: 10px;
+  font-size: 15px;
+`;
