@@ -104,7 +104,6 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
           </div>
         </form>
       </div>
-      <br></br>
 
       <div className="myopen">
         <div className="my_title">💙진행 공구 목록💙</div>

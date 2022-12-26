@@ -40,7 +40,7 @@ const Navigation = ({ userObj }) => {
             }}
           >
             <button className="default_Btn_Right3" onClick={logOut}>
-              LogOut
+              logout
             </button>
           </Link>
         ) : (
