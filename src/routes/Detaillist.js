@@ -406,19 +406,31 @@ const Detaillist = ({ userObj }) => {
               <Br />
               <div className="detaillist_scr">
                 {!checked ? (
-                  <FontAwesomeIcon
-                    icon={faStar}
+                  // <FontAwesomeIcon
+                  //   icon={faStar}
+                  //   onClick={check}
+                  //   size="2x"
+                  //   color={"#E4C6F5"}
+                  // ></FontAwesomeIcon>
+                  <img
+                    src="img/checked_star3.png"
+                    alt="스크랩후"
+                    style={{ width: "8vw" }}
                     onClick={check}
-                    size="2x"
-                    color={"#E4C6F5"}
-                  ></FontAwesomeIcon>
+                  />
                 ) : (
-                  <FontAwesomeIcon
-                    icon={FaStarRegular}
+                  // <FontAwesomeIcon
+                  //   icon={FaStarRegular}
+                  //   onClick={check}
+                  //   size="2x"
+                  //   color={"#E4C6F5"}
+                  // ></FontAwesomeIcon>
+                  <img
+                    src="img/unChecked_star3.png"
+                    alt="스크랩전"
+                    style={{ width: "8vw" }}
                     onClick={check}
-                    size="2x"
-                    color={"#E4C6F5"}
-                  ></FontAwesomeIcon>
+                  ></img>
                 )}
               </div>
 
