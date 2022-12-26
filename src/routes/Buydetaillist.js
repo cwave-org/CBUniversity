@@ -184,12 +184,12 @@ const Buydetaillist = () => {
           <>
             <form onSubmit={onSubmit}>
               <EachContainer>
-                <EachTitle>✔️ 입금자 명</EachTitle>
+                <EachTitle>- 입금자 명</EachTitle>
                 <EachDetail>{newDetailObj.account_name}</EachDetail>
               </EachContainer>
 
               <EachContainer>
-                <EachTitle>✔️ 전화번호</EachTitle>
+                <EachTitle>- 전화번호</EachTitle>
                 <EachDetail>
                   <input
                     className="openjoin_input"
@@ -204,7 +204,7 @@ const Buydetaillist = () => {
               </EachContainer>
 
               <EachContainer>
-                <EachTitle>✔️ 현장배부 날짜</EachTitle>
+                <EachTitle>- 현장배부 날짜</EachTitle>
                 <EachDetail_white>
                   {dates
                     .slice(0)
@@ -231,12 +231,12 @@ const Buydetaillist = () => {
               </EachContainer>
 
               <EachContainer>
-                <EachTitle>✔️ 입금 날짜 및 시간</EachTitle>
+                <EachTitle>- 입금 날짜 및 시간</EachTitle>
                 <EachDetail>{newDetailObj.account_date}</EachDetail>
               </EachContainer>
 
               <EachContainer>
-                <EachTitle>✔️ 환불계좌</EachTitle>
+                <EachTitle>- 환불계좌</EachTitle>
                 <EachDetail>
                   <input
                     className="openjoin_input"
@@ -251,7 +251,7 @@ const Buydetaillist = () => {
               </EachContainer>
 
               <EachContainer>
-                <EachTitle>✔️ 구매 수량</EachTitle>
+                <EachTitle>- 구매 수량</EachTitle>
                 <EachDetail>
                   {newDetailObj.optionname.map((opt) => (
                     <div key={newDetailObj.optionname.indexOf(opt)}>
@@ -268,7 +268,7 @@ const Buydetaillist = () => {
               </EachContainer>
 
               <EachContainer>
-                <EachTitle>✔️ 구매 금액</EachTitle>
+                <EachTitle>- 구매 금액</EachTitle>
                 <EachDetail>{newDetailObj.totalprice} 원</EachDetail>
               </EachContainer>
 
@@ -288,32 +288,32 @@ const Buydetaillist = () => {
           <p className="my_title">💙폼 제출 내용💙</p>
           <hr />
           <EachContainer>
-            <EachTitle>✔️ 입금자 명</EachTitle>
+            <EachTitle>- 입금자 명</EachTitle>
             <EachDetail>{newDetailObj.account_name}</EachDetail>
           </EachContainer>
 
           <EachContainer>
-            <EachTitle>✔️ 전화번호</EachTitle>
+            <EachTitle>- 전화번호</EachTitle>
             <EachDetail>{newDetailObj.phonenumber}</EachDetail>
           </EachContainer>
 
           <EachContainer>
-            <EachTitle>✔️ 현장배부 날짜</EachTitle>
+            <EachTitle>- 현장배부 날짜</EachTitle>
             <EachDetail>{newDetailObj.handout_date}</EachDetail>
           </EachContainer>
 
           <EachContainer>
-            <EachTitle>✔️ 입금 날짜 및 시간</EachTitle>
+            <EachTitle>- 입금 날짜 및 시간</EachTitle>
             <EachDetail>{newDetailObj.account_date}</EachDetail>
           </EachContainer>
 
           <EachContainer>
-            <EachTitle>✔️ 환불계좌</EachTitle>
+            <EachTitle>- 환불계좌</EachTitle>
             <EachDetail>{newDetailObj.account_re}</EachDetail>
           </EachContainer>
 
           <EachContainer>
-            <EachTitle>✔️ 구매 수량</EachTitle>
+            <EachTitle>- 구매 수량</EachTitle>
             <EachDetail>
               {newDetailObj.optionname.map((opt) => (
                 <div key={newDetailObj.optionname.indexOf(opt)}>
@@ -325,7 +325,7 @@ const Buydetaillist = () => {
           </EachContainer>
 
           <EachContainer>
-            <EachTitle>✔️ 구매 금액</EachTitle>
+            <EachTitle>- 구매 금액</EachTitle>
             <EachDetail>{newDetailObj.totalprice} 원</EachDetail>
           </EachContainer>
           <div style={{ float: "right" }}>

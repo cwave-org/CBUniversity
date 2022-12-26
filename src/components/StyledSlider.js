@@ -15,6 +15,7 @@ export const StyledSlider = styled(Slider)`
   .slick-slide > div {
     // 자식 안에 div
     margin: 10px 5px;
+    margin-bottom: 12px;
     box-sizing: border-box;
   }
 
@@ -24,7 +25,7 @@ export const StyledSlider = styled(Slider)`
     bottom: -10px;
     width: auto;
     font-size: 3px;
-    padding: 0px 12px;
+    padding: 2px 12px;
     margin-bottom: 5px;
     /* background-color: #fff; */
     border-radius: 10.5px;

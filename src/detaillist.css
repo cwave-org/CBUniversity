@@ -46,7 +46,7 @@ ul {
   flex-direction: row;
 }
 
-.comment_trashbtn{
+.comment_trashbtn {
   position: absolute;
   left: 87%;
   transform: translateY(-100%);
@@ -61,12 +61,12 @@ ul {
   /* width: 90%; */
   text-align: left;
 }
-.comment_text{
-  width:75%;
-  margin-left: 15%;
+.comment_text {
+  width: 75%;
+  margin-left: 12%;
 }
-.comment_retext{
-  width:75%;
+.comment_retext {
+  width: 75%;
   margin-left: 15%;
 }
 .detaillist_comment1 {
@@ -129,6 +129,6 @@ ul {
   outline: 2px solid #bbdcf7;
   border-radius: 5px;
 }
-.need_enter{
+.need_enter {
   white-space: pre-wrap;
 }

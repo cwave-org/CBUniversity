@@ -20,14 +20,22 @@ import Swal from "sweetalert2";
 const Btn = styled.button`
   margin: 5px;
   width: 48%;
-  background-color: #f26656;
   border-radius: 5px;
+  background-color: #f26656;
   color: white;
 `;
 const Btn1 = styled(Btn)`
-  background-color: #bbdcf7;
   width: 50%;
-  color: rgb(85, 141, 245);
+  color: white;
+  background-color: #407fff;
+`;
+const Btn2 = styled(Btn)`
+  width: 10%;
+  text-align: right;
+  margin-top: 0px;
+  border-radius: 5px;
+  color: white;
+  background-color: #407fff;
 `;
 const Detaillist = ({ userObj }) => {
   const { id } = useParams();
@@ -435,17 +443,17 @@ const Detaillist = ({ userObj }) => {
               </div>
 
               <Container>
-                <b>✔️ 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.name}
+                <b>- 판매자</b> &nbsp;&nbsp;&nbsp; {itemObj.name}
                 <br></br>
-                <b>✔️ 마감기한</b> &nbsp;&nbsp;&nbsp; {itemObj.deadline}
+                <b>- 마감기한</b> &nbsp;&nbsp;&nbsp; {itemObj.deadline}
                 <br></br>
-                <b>✔️ 계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
+                <b>- 계좌</b> &nbsp;&nbsp;&nbsp;{itemObj.account}
                 <br></br>
-                <b>✔️ 상세사항</b>
+                <b>- 상세사항</b>
                 <DetailArea>{itemObj.etc}</DetailArea>
-                <b>✔️ 주의사항</b>
+                <b>- 주의사항</b>
                 <DetailArea>{itemObj.notice}</DetailArea>
-                <b>✔️ 상품</b>
+                <b>- 상품</b>
                 <EachDetail eachObj={eachObj} />
               </Container>
             </div>
@@ -522,9 +530,7 @@ const Detaillist = ({ userObj }) => {
                         value={qna}
                         onChange={QnAonChange}
                       />
-                      <button type="upload_Btn" className="upload_Btn">
-                        💬
-                      </button>
+                      <Btn2 type="upload_Btn">💬</Btn2>
                     </form>
                   ) : (
                     <div className="qna_text">
