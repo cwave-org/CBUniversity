@@ -177,7 +177,7 @@ const Buydetaillist = () => {
 
               <EachContainer>
                 <EachTitle>✔️ 현장배부 날짜</EachTitle>
-                <EachDetail_date>
+                <EachDetail_white>
                   {dates
                     .slice(0)
                     .reverse()
@@ -199,7 +199,7 @@ const Buydetaillist = () => {
                         </NumBox>
                       </SelectNum>
                     ))}
-                </EachDetail_date>
+                </EachDetail_white>
               </EachContainer>
 
               <EachContainer>
@@ -335,10 +335,11 @@ const EachTitle = styled.div`
 const EachDetail = styled.div`
   margin-top: 1px;
 `;
-const EachDetail_date = styled.div`
+const EachDetail_white = styled.div`
   margin-top: 1px;
   background-color: #fff;
   padding: 5px;
+  border-radius: 13px;
 `;
 const SelectNum = styled.div`
   border-radius: 5px;

@@ -50,7 +50,7 @@ function App() {
         />
       ) : (
         <div className="ini">
-          <img id="rotating_img" width="80%" src="img/logo4.png"></img>
+          <img id="rotating_img" width="80%" src="img/loading.gif"></img>
         </div>
       )}
     </>

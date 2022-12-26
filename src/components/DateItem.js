@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const EachBox=styled.div`
-  background-color: #F6F6F6;
-  margin: 5px 7px 10px;
-  border: 2px solid  #F6F6F6;
+const EachBox = styled.div`
+  background-color: #f6f6f6;
+  margin: 0px;
+  border: 2px solid #f6f6f6;
   border-radius: 10px;
-  padding:5px;
   /* border-bottom: ; */
-`;
-
-const EachDetail=styled.div`
-  margin-bottom: 10px;
 `;
 
 const DateItem = (props) => {
@@ -21,7 +16,7 @@ const DateItem = (props) => {
     props.setData([
       {
         id: props.id,
-        handout_date: handout_date
+        handout_date: handout_date,
       },
       ...props.data,
     ]);
@@ -38,18 +33,16 @@ const DateItem = (props) => {
 
   return (
     <>
-    <EachBox>
-      <EachDetail>
-          <input
-            className="openjoin_input"
-            id="handoutdateform"
-            onChange={onChange}
-            value={handout_date}
-            placeholder="2023년 1월 6일 15시~20시"
-            required
-          />
-        </EachDetail>
-    </EachBox>
+      <EachBox>
+        <input
+          className="openjoin_input"
+          id="handoutdateform"
+          onChange={onChange}
+          value={handout_date}
+          placeholder="2023년 1월 6일 15시~20시"
+          required
+        />
+      </EachBox>
     </>
   );
 };

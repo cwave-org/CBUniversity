@@ -244,7 +244,7 @@ const BuyingForm = ({ userObj }) => {
         </EachContainer>
         <EachContainer>
           <EachTitle>✔️ 배송여부</EachTitle>
-          <EachDetail>
+          <EachDetail_white>
             <input
               type="radio"
               name="theme"
@@ -260,14 +260,14 @@ const BuyingForm = ({ userObj }) => {
               onClick={onRadioClick}
             />
             택배배송
-          </EachDetail>
+          </EachDetail_white>
         </EachContainer>
         {giving === 0 ? (
           <EachContainer></EachContainer>
         ) : giving === 1 ? (
           <EachContainer>
             <EachTitle>✔️ 집주소</EachTitle>
-            <EachDetail>
+            <EachDetail_white>
               <input
                 className="openjoin_input"
                 id="addressform"
@@ -276,12 +276,12 @@ const BuyingForm = ({ userObj }) => {
                 onChange={onChange}
                 value={address}
               />
-            </EachDetail>
+            </EachDetail_white>
           </EachContainer>
         ) : (
           <EachContainer>
             <EachTitle>✔️ 현장배부 날짜</EachTitle>
-            <EachDetail>
+            <EachDetail_white>
               {dates
                 .slice(0)
                 .reverse()
@@ -303,7 +303,7 @@ const BuyingForm = ({ userObj }) => {
                     </NumBox>
                   </SelectNum>
                 ))}
-            </EachDetail>
+            </EachDetail_white>
           </EachContainer>
         )}
         <EachContainer>
@@ -335,7 +335,7 @@ const BuyingForm = ({ userObj }) => {
         </EachContainer>
         <EachContainer1>
           <EachTitle>✔️ 구매 수량 및 금액</EachTitle>
-          <EachDetail>
+          <EachDetail_white>
             {isLodded &&
               items.map((item, i) => (
                 <SelectNum key={i}>
@@ -359,7 +359,7 @@ const BuyingForm = ({ userObj }) => {
                   )}
                 </SelectNum>
               ))}
-          </EachDetail>
+          </EachDetail_white>
           <Sum>✨ 총 {total} 원</Sum>
         </EachContainer1>
 
@@ -436,9 +436,9 @@ const Sum = styled(SelectNum)`
   text-align: center;
 `;
 const Btn = styled.button`
-  background-color: #b6b6b6;
+  background-color: #b5b5b5;
+  color: white;
   border-radius: 5px;
-  color: #5b5b5b;
   width: 27px;
   font-size: 15px;
 `;
@@ -473,4 +473,10 @@ const LoadImg = styled.div`
   left: 50%;
   transform: translate(-50%, 0);
   /* width:30%; */
+`;
+const EachDetail_white = styled.div`
+  margin-top: 1px;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 13px;
 `;

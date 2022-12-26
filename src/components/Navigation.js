@@ -17,18 +17,43 @@ const Navigation = ({ userObj }) => {
   return (
     <>
       <nav>
+        {userObj != null ? (
+          <Link
+            to="/"
+            style={{
+              fontSize: 10,
+              display: "flex",
+              textDecoration: "none",
+              justifyContent: "right",
+            }}
+          >
+            <span style={{ fontSize: 10 }} onClick={logOut}>
+              LogOut
+            </span>
+          </Link>
+        ) : (
+          <> &nbsp;</>
+        )}
+        <ul
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <Link
             to="/"
             style={{
               alignItems: "center",
               fontSize: 10,
               textDecoration: "none",
+              display: "flex",
             }}
           >
             <Logo>
-              <img  width="150px" src="img/공구대학교@2x.png" alt="로고"></img>
+              <img width="150px" src="img/공구대학교@2x.png" alt="로고"></img>
             </Logo>
-            </Link>
+          </Link>
+        </ul>
       </nav>
     </>
   );

@@ -457,7 +457,7 @@ const Detaillist = ({ userObj }) => {
           <img
             id="rotating_img"
             width="80%"
-            src="img/logo4.png"
+            src="img/loading.gif"
             alt="로딩"
           ></img>
         </div>

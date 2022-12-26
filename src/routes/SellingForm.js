@@ -45,13 +45,14 @@ const Notice2 = styled.div`
 const Box = styled.div`
   position: relative;
   border-radius: 10px;
+  padding-bottom: 25px;
 `;
 const Button = styled.button`
   position: absolute;
-  bottom: 0px;
-  right: 50px;
-  background-color: #d9d9d9;
-  color: #5b5b5b;
+  bottom: -px;
+  right: 3px;
+  background-color: #b5b5b5;
+  color: white;
 `;
 const MyBtn = styled.div`
   width: fit-content;
@@ -227,7 +228,6 @@ const SellingForm = ({ userObj }) => {
   return (
     <form className="openjoin_container">
       <p>공구 열기</p>
-      <hr />
       <EachContainer>
         <EachTitle>✔️ 상품이름</EachTitle>
         <EachDetail>
