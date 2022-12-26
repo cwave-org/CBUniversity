@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Btn = styled.button`
-  margin: 5px;
+  margin: 2px;
   width: 48%;
   border-radius: 5px;
   background-color: #f26656;
@@ -71,7 +71,7 @@ const Comment = ({ userObj, qnaObj, detailObj, isOpener }) => {
           <input
             className="comment_text"
             type="text"
-            placeholder="답변을 달아주세요"
+            placeholder="  답변을 달아주세요"
             value={comment}
             onChange={onChangeComment}
           />
