@@ -61,7 +61,7 @@ export default function Commentlist({
 
           {isOwner && (
             <span className="comment_trashbtn" onClick={onCommentDeleteClick}>
-              <FontAwesomeIcon icon={faTrash} color={"#4B59A8"} />
+              <FontAwesomeIcon icon={faTrash} color={"#407FFF"} />
             </span>
           )}
         </>
@@ -73,7 +73,7 @@ export default function Commentlist({
           </div>
           {isOwner && (
             <span className="comment_trashbtn" onClick={onCommentDeleteClick}>
-              <FontAwesomeIcon icon={faTrash} color={"#4B59A8"} />
+              <FontAwesomeIcon icon={faTrash} color={"#407FFF"} />
             </span>
           )}
         </>

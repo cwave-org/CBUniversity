@@ -486,7 +486,7 @@ const Detaillist = ({ userObj }) => {
                 <span className="detaillist_user" onClick={onShareClick}>
                   <FontAwesomeIcon
                     size="2x"
-                    color={"#C7D3F7"}
+                    color={"#407FFF"}
                     icon={faShareFromSquare}
                   />
                 </span>
@@ -505,7 +505,7 @@ const Detaillist = ({ userObj }) => {
                       <FontAwesomeIcon
                         icon={faTrash}
                         size="2x"
-                        color={"#C7D3F7"}
+                        color={"#407FFF"}
                         title="삭제"
                       />
                     </span>
