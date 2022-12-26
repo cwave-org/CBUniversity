@@ -18,7 +18,7 @@ import EachDetail from "../components/SOOM/EachDetail";
 import Swal from "sweetalert2";
 
 const Btn = styled.button`
-  margin: 5px;
+  margin: 2px;
   width: 48%;
   border-radius: 5px;
   background-color: #f26656;
@@ -526,7 +526,7 @@ const Detaillist = ({ userObj }) => {
                       <input
                         className="qna_input"
                         type="text"
-                        placeholder="🙏🏼수정은 불가능하세요.🙏🏼"
+                        placeholder=" 🙏🏼수정은 불가능하세요.🙏🏼"
                         value={qna}
                         onChange={QnAonChange}
                       />
