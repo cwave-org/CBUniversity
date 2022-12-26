@@ -22,7 +22,7 @@ export const StyledSlider = styled(Slider)`
   // dots
   .slick-dots {
     left: 50%;
-    bottom: -10px;
+    bottom: 10px;
     width: auto;
     font-size: 3px;
     padding: 2px 12px;
@@ -35,7 +35,7 @@ export const StyledSlider = styled(Slider)`
     li {
       width: 5px;
       height: 5px;
-      margin: 0;
+      margin: 5px;
 
       &:last-of-type {
         margin-left: 6px;
@@ -53,6 +53,7 @@ export const StyledSlider = styled(Slider)`
           top: auto;
           left: auto;
           right: auto;
+          color: #fff;
         }
       }
     }

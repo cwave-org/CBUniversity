@@ -7,6 +7,8 @@ const MyBtn = styled.div`
   padding: 0 5px;
   text-align: center;
   height: 10%;
+  margin: 3px 3px 10px 3px;
+  padding: 0 0 0 10px;
   background-color: #b5b5b5;
   color: white;
   border-radius: 5px;
@@ -33,6 +35,8 @@ const Btn = styled.button`
 
 const EachTitle = styled.div`
   font-weight: 500;
+  color:#707070;
+  font-size: 12px;
 `;
 
 //사진 다중업로드
@@ -75,6 +79,10 @@ const ItemDetails = (props) => {
       target: { value },
     } = e;
     if (e.target.id === "explain") {
+      console.log(ta.current.scrollHeight)
+      if (ta.current.scrollHeight > 78) {
+        ta.current.style.height = ta.current.scrollHeight + "px";
+      }
       setExplain(value);
     }
   };
@@ -130,17 +138,19 @@ const ItemDetails = (props) => {
         </>
       )}
       <EachTitle style={{ marginTop: "15px" }}>✨ 상품 상세 설명</EachTitle>
-      <input
+      <DetailArea
         id="explain"
         className="openjoin_input"
         value={explain}
         type="textarea"
+        ref={ta}
         style={{
           width: "100%",
-          objectFit: "contain",
+          // objectFit: "contain",
           borderRadius: "13px",
           border: "solid 1px #dedede",
           backgroundColor: "#fff",
+          height:"70px",
         }}
         onChange={onChange}
         placeholder="상세 설명을 적어주세요"
@@ -162,3 +172,16 @@ useEffect(()=>{
     props.setData([{id:props.id,url:fileDataList,content:explain}, ...props.data])
 },[uploaded]);
 */
+const DetailArea = styled.textarea`
+  padding: 3px 5px;
+  border-radius: 5px;
+  height: 30px;
+  resize: none;
+  background-color: #f6f6f6;
+  ::placeholder{
+    padding: 5px;
+    color:#c1c7d0;
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
+`;

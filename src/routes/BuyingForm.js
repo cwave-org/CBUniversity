@@ -212,9 +212,9 @@ const BuyingForm = ({ userObj }) => {
         </Load>
       )}
       <form onSubmit={onSubmit}>
-        <p>공구 참여하기</p>
+        {/* <p>공구 참여하기</p> */}
         <EachContainer>
-          <EachTitle>✔️ 입금자 명</EachTitle>
+          <EachTitle>입금자 명  <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
           <EachDetail>
             <input
               className="openjoin_input"
@@ -228,7 +228,7 @@ const BuyingForm = ({ userObj }) => {
           </EachDetail>
         </EachContainer>
         <EachContainer>
-          <EachTitle>✔️ 전화번호</EachTitle>
+          <EachTitle>전화번호  <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
           <EachDetail>
             <input
               className="openjoin_input"
@@ -243,8 +243,8 @@ const BuyingForm = ({ userObj }) => {
           </EachDetail>
         </EachContainer>
         <EachContainer>
-          <EachTitle>✔️ 배송여부</EachTitle>
-          <EachDetail_white>
+          <EachTitle>배송여부 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
+          <EachDetailwhite>
             <input
               type="radio"
               name="theme"
@@ -260,14 +260,14 @@ const BuyingForm = ({ userObj }) => {
               onClick={onRadioClick}
             />
             택배배송
-          </EachDetail_white>
+          </EachDetailwhite>
         </EachContainer>
         {giving === 0 ? (
           <EachContainer></EachContainer>
         ) : giving === 1 ? (
           <EachContainer>
-            <EachTitle>✔️ 집주소</EachTitle>
-            <EachDetail_white>
+            <EachTitle>집주소 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
+            <EachDetailwhite>
               <input
                 className="openjoin_input"
                 id="addressform"
@@ -276,12 +276,12 @@ const BuyingForm = ({ userObj }) => {
                 onChange={onChange}
                 value={address}
               />
-            </EachDetail_white>
+            </EachDetailwhite>
           </EachContainer>
         ) : (
           <EachContainer>
-            <EachTitle>✔️ 현장배부 날짜</EachTitle>
-            <EachDetail_white>
+            <EachTitle>현장배부 날짜 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
+            <EachDetailwhite>
               {dates
                 .slice(0)
                 .reverse()
@@ -303,11 +303,11 @@ const BuyingForm = ({ userObj }) => {
                     </NumBox>
                   </SelectNum>
                 ))}
-            </EachDetail_white>
+            </EachDetailwhite>
           </EachContainer>
         )}
         <EachContainer>
-          <EachTitle>✔️ 입금 날짜 및 시간</EachTitle>
+          <EachTitle>입금 날짜 및 시간 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
           <EachDetail>
             <input
               className="openjoin_input"
@@ -320,7 +320,7 @@ const BuyingForm = ({ userObj }) => {
           </EachDetail>
         </EachContainer>
         <EachContainer>
-          <EachTitle>✔️ 환불계좌</EachTitle>
+          <EachTitle>환불계좌 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
           <EachDetail>
             <input
               className="openjoin_input"
@@ -334,8 +334,8 @@ const BuyingForm = ({ userObj }) => {
           </EachDetail>
         </EachContainer>
         <EachContainer1>
-          <EachTitle>✔️ 구매 수량 및 금액</EachTitle>
-          <EachDetail_white>
+          <EachTitle>구매 수량 및 금액 <img src="img/check.png" alt="체크" style={{width:"15px"}} /></EachTitle>
+          <EachDetailCount>
             {isLodded &&
               items.map((item, i) => (
                 <SelectNum key={i}>
@@ -359,12 +359,12 @@ const BuyingForm = ({ userObj }) => {
                   )}
                 </SelectNum>
               ))}
-          </EachDetail_white>
+          </EachDetailCount>
           <Sum>✨ 총 {total} 원</Sum>
         </EachContainer1>
 
         {/* <p className="openjoin_que">
-        <span>✔️ 수량: </span>
+        <span>수량:  <img src="img/check.png" alt="체크" style={{width:"15px"}} /></span>
         <input
           className="openjoin_input"
           id="countform"
@@ -377,7 +377,7 @@ const BuyingForm = ({ userObj }) => {
       </p> */}
 
         {/* <p className="openjoin_que">
-        <span>✔️ 사이즈: </span>
+        <span>사이즈: <img src="img/check.png" alt="체크" style={{width:"15px"}} /> </span>
         <input
           className="openjoin_input"
           id="sizeform"
@@ -389,10 +389,10 @@ const BuyingForm = ({ userObj }) => {
         />
       </p> */}
         <div>
-          <button className="default_Btn_Right" onClick={onCancel}>
+          <button className="default_Btn_Right1" onClick={onCancel}>
             취소
           </button>
-          <button className="default_Btn_Right" type="submit">
+          <button className="default_Btn_Right1" type="submit">
             제출
           </button>
         </div>
@@ -405,7 +405,7 @@ export default BuyingForm;
 
 const EachContainer = styled.div`
   width: 100%;
-  margin: 3px 3px 15px;
+  margin: 3px 3px 10px;
 `;
 const EachContainer1 = styled(EachContainer)`
   margin: 3px 3px 65px;
@@ -413,7 +413,11 @@ const EachContainer1 = styled(EachContainer)`
 `;
 const EachTitle = styled.div`
   font-weight: 600;
+  margin-left: 5px;
+  margin-bottom: 1px;
   position: relative;
+  font-size: 12px;
+  color:#707070;
 `;
 const EachDetail = styled.div`
   margin-top: 1px;
@@ -474,9 +478,13 @@ const LoadImg = styled.div`
   transform: translate(-50%, 0);
   /* width:30%; */
 `;
-const EachDetail_white = styled.div`
+const EachDetailwhite = styled.div`
   margin-top: 1px;
   background-color: #fff;
-  padding: 5px;
-  border-radius: 13px;
+  padding: 0 7px 5px;
+  border-radius: 19px;
+  border: solid 1px #dedede;
+`;
+const EachDetailCount=styled(EachDetailwhite)`
+  padding: 5px 7px;
 `;

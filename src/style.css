@@ -166,6 +166,16 @@ button {
   color: white;
   background-color: #407fff;
 }
+.default_Btn_Right1 {
+  margin: 5px;
+  width: 15%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-radius: 5px;
+  float: right;
+  color: white;
+  background-color: #407fff;
+}
 .default_Btn_Right2 {
   margin: 3px;
   padding: 5px 15px;

@@ -10,7 +10,7 @@ const Footer = ({ userObj, option }) => {
     authService.signOut();
   };
   const onClick = (e) => {
-    console.log(e);
+    // console.log(e);
     if (e === 0) {
       if (userObj == null) {
         Swal.fire({

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import SimpleSlider from "../components/SimpleSlider";
 import Footer from "../components/Footer";
 const PostListWrapper = styled.div`
-  margin-top: 15px;
+  margin-top: 7px;
   display: grid;
   place-items: center;
   justify-content: space-evenly;

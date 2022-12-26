@@ -20,6 +20,8 @@ const EachBox = styled.div`
 `;
 const EachTitle = styled.div`
   font-weight: 500;
+  color:#707070;
+  font-size: 12px;
 `;
 const EachDetail = styled.div`
   margin-bottom: 10px;
@@ -27,11 +29,11 @@ const EachDetail = styled.div`
 const EachInput = styled.input`
   // background-color: #f6f6f6;
   // width: 100%;
-  width: 100%;
+  width: 99%;
   height: 38px;
   margin: 4px;
   object-fit: contain;
-  border-radius: 13px;
+  border-radius: 19px;
   border: solid 1px #dedede;
   background-color: #fff;
 `;
