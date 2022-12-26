@@ -3,12 +3,19 @@ import styled from "styled-components";
 import ItemDetails from "./ItemDetalis";
 
 const EachBox = styled.div`
-  background-color: #f6f6f6;
-  margin: 5px 7px 30px;
-  border: 2px solid #f6f6f6;
-  border-radius: 10px;
-  padding: 5px;
-  
+  // background-color: #f6f6f6;
+  // margin: 5px 7px 30px;
+  // border: 2px solid #f6f6f6;
+  // border-radius: 10px;
+  // padding: 5px;
+  width: 100%;
+  margin-top: 3px;
+  padding: 7px;
+  margin-bottom: 30px;
+  object-fit: contain;
+  border-radius: 19px;
+  border: solid 1px #dedede;
+  background-color: #fff;
   /* border-bottom: ; */
 `;
 const EachTitle = styled.div`
@@ -18,28 +25,36 @@ const EachDetail = styled.div`
   margin-bottom: 10px;
 `;
 const EachInput = styled.input`
-  background-color: #f6f6f6;
+  // background-color: #f6f6f6;
+  // width: 100%;
   width: 100%;
+  height: 38px;
+  margin: 4px;
+  object-fit: contain;
+  border-radius: 13px;
+  border: solid 1px #dedede;
+  background-color: #fff;
 `;
 const EachId = styled.div`
   font-weight: 600;
   text-align: center;
 `;
-const Notouch=styled.div`
-  width:fit-content;
+const Notouch = styled.div`
+  width: fit-content;
   position: fixed;
-  top:0%;
+  top: 0%;
   left: 0vw;
   height: 100vh;
   z-index: 0;
-  background-color:rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
 `;
+
 const SellingItem = (props) => {
   const [itemname, setItemname] = useState("");
   const [price, setPrice] = useState();
   const [itemDetails, setItemsDetails] = useState("");
   const [data, setData] = useState([]);
-  const [lostdata,setLostdata]=useState([]);
+  const [lostdata, setLostdata] = useState([]);
   useEffect(() => {
     props.setData([
       {
@@ -60,11 +75,10 @@ const SellingItem = (props) => {
     // console.log(props.submit);
   }, [data]);
   useEffect(() => {
-    props.setData1([{itemDetails:lostdata},...props.data1,]);
+    props.setData1([{ itemDetails: lostdata }, ...props.data1]);
     // console.log(props.data1);
     // setItemsDetails(eachdata,...itemDetails);
   }, [lostdata]);
-
 
   const onChange = (event) => {
     const {
@@ -75,16 +89,15 @@ const SellingItem = (props) => {
     } else if (event.target.id === "price") {
       setPrice(value);
     }
-    props.click[props.id]=false;
+    props.click[props.id] = false;
     // console.log(props.submit)
     // console.log(props.click);
   };
 
   return (
     <>
-
       <EachBox>
-        <EachId>{props.id+1}번 상품</EachId>
+        <EachId>{props.id + 1}번 상품</EachId>
 
         {/* // <div className="item_container"> */}
         {/* <p className="openjoin_que"> */}
@@ -112,11 +125,12 @@ const SellingItem = (props) => {
             required
           />
         </EachDetail>
-        <EachTitle>✨ 상품 상세 설명 (최대 3개)</EachTitle>
+        <EachTitle>✨ 상품 상세 사진 (최대 3개)</EachTitle>
         <EachDetail>
           <ItemDetails
-            id={props.id} 
-            data={data} setData={setData} 
+            id={props.id}
+            data={data}
+            setData={setData}
             lostdata={lostdata}
             setLostdata={setLostdata}
           />
@@ -124,7 +138,6 @@ const SellingItem = (props) => {
         </EachDetail>
       </EachBox>
     </>
-
   );
 };
 

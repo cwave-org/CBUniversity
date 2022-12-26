@@ -22,7 +22,6 @@ const LoadImg = styled.div`
   /* width:30%; */
 `;
 
-
 const Box = styled.div`
   /* border: 2px solid #d9d9d9; */
   /* background-color: #F6F6F6; */
@@ -33,8 +32,8 @@ const Button = styled.button`
   position: absolute;
   bottom: 20px;
   right: 50px;
-  background-color: #d9d9d9;
-  color: #5b5b5b;
+  background-color: #b5b5b5;
+  color: white;
   /* left:3px; */
 `;
 const Button1 = styled(Button)`
@@ -46,7 +45,7 @@ const SellingItemFactory = (props) => {
   // const [id,setId]=useState(1);
   const [eachObj, setEachObj] = useState();
 
-  const [loading,isLoading]=useState(false);
+  const [loading, isLoading] = useState(false);
   const [data, setData] = useState([]);
   const [data1, setData1] = useState([]);
   const [items, setItems] = useState([
@@ -127,46 +126,38 @@ const SellingItemFactory = (props) => {
       getData();
     }
   };
-  const getData=async()=>{
-      await dbService
-        .doc(`itemlist/${props.itemID}`)
-        .get()
-        .then((doc) => {
-          // console.log(doc.data());
-          setEachObj(doc.data().data.reverse());
-        });
-        isSubmit(true);
-
+  const getData = async () => {
+    await dbService
+      .doc(`itemlist/${props.itemID}`)
+      .get()
+      .then((doc) => {
+        // console.log(doc.data());
+        setEachObj(doc.data().data.reverse());
+      });
+    isSubmit(true);
   };
-  
-  const onDataSet=()=>{
-    props.click[props.id]=true;
+
+  const onDataSet = () => {
+    props.click[props.id] = true;
   };
 
   return (
     <Box>
-      {loading&&
+      {loading && (
         <Load>
           <LoadImg>
             <img src="img/loading.svg" alt="로딩" />
           </LoadImg>
         </Load>
-      }{
-        submit?(
-            <EachDetail eachObj={eachObj} />
-        ):(
-          <>
-            {items}
-            <Button className="default_Btn_Left" onClick={addItem}>
-              상품 추가
-            </Button>
-            <Button1 className="default_Btn_Right" onClick={onClickDone}>
-              완료
-            </Button1>
-            <br />
-          </>
-        )
-      }
+      )}
+      {submit ? <EachDetail eachObj={eachObj} /> : <>{items}</>}
+      <Button className="default_Btn_Left" onClick={addItem}>
+        상품 추가
+      </Button>
+      <Button1 className="default_Btn_Right" onClick={onClickDone}>
+        완료
+      </Button1>
+      <br />
     </Box>
   );
 };

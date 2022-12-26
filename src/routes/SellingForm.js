@@ -9,7 +9,7 @@ import DateItem from "../components/DateItem";
 
 const EachContainer = styled.div`
   width: 100%;
-  margin: 3px 3px 15px;
+  margin: 3px 0px 0px 0px;
 `;
 const EachTitle = styled.div`
   font-weight: 600;
@@ -53,7 +53,16 @@ const Button = styled.button`
   background-color: #d9d9d9;
   color: #5b5b5b;
 `;
-
+const MyBtn = styled.div`
+  width: fit-content;
+  margin: 5px 3px 3px;
+  padding: 0 5px;
+  text-align: center;
+  height: 10%;
+  background-color: #b5b5b5;
+  color: white;
+  border-radius: 5px;
+`;
 const SellingForm = ({ userObj }) => {
   const [itemname, setItemname] = useState("");
   const [name, setName] = useState("");
@@ -102,7 +111,7 @@ const SellingForm = ({ userObj }) => {
       attachmentUrl = await response.ref.getDownloadURL();
     }
     const listObj = {
-      randomidx: itemID, 
+      randomidx: itemID,
       name: name, // 공대표 이름 추가
       itemname: itemname,
       deadline: deadline,
@@ -200,22 +209,25 @@ const SellingForm = ({ userObj }) => {
     //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
     // }
   };
-  const onClickAddDate = () =>{
-    setDateId(dateId+1);
-    setDates(dates.concat(
-      <DateItem
-        key={id+1}
-        id={id+1}
-        setData={setData}
-        data={data}
-        uid={userObj.uid}
-      />
-    ));
-  }
+  const onClickAddDate = () => {
+    setDateId(dateId + 1);
+    setDates(
+      dates.concat(
+        <DateItem
+          key={id + 1}
+          id={id + 1}
+          setData={setData}
+          data={data}
+          uid={userObj.uid}
+        />
+      )
+    );
+  };
 
   return (
     <form className="openjoin_container">
       <p>공구 열기</p>
+      <hr />
       <EachContainer>
         <EachTitle>✔️ 상품이름</EachTitle>
         <EachDetail>
@@ -250,12 +262,18 @@ const SellingForm = ({ userObj }) => {
       <EachContainer>
         <EachTitle>✔️ 상품 대표사진</EachTitle>
         <Detail1>
-          <input
-            className="openjoin_input"
-            type="file"
-            accept="image/*"
-            onChange={onFileChange}
-          />
+          <MyBtn>
+            <label>
+              파일 업로드
+              <input
+                type="file"
+                accept="image/*"
+                multiple="multiple"
+                onChange={onFileChange}
+                style={{ visibility: "hidden", width: "0px" }}
+              />
+            </label>
+          </MyBtn>
           {attachment && (
             <div className="attatchment">
               <img src={attachment} alt="대표사진" />
@@ -363,7 +381,6 @@ const SellingForm = ({ userObj }) => {
                 날짜 추가
               </Button>
             </Box>
-            
           </EachDetail>
         </EachContainer>
       )}
@@ -417,7 +434,6 @@ const SellingForm = ({ userObj }) => {
           setClicked={setClicked}
         />
       </EachContainer>
-
       <div>
         <button className="default_Btn_Right2" onClick={onCancel}>
           취소

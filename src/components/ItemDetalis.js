@@ -3,21 +3,18 @@ import styled from "styled-components";
 
 const MyBtn = styled.div`
   width: fit-content;
-  margin: 3px 0 3px;
+  margin: 5px 3px 3px;
   padding: 0 5px;
   text-align: center;
   height: 10%;
-  background-color: #d9d9d9;
+  background-color: #b5b5b5;
+  color: white;
   border-radius: 5px;
-  color: #5b5b5b;
 `;
 const Container = styled.div`
   width: 100%;
   position: relative;
   margin: auto;
-  border: 3px solid #f6f6f6;
-  border-radius: 10px;
-  background-color: #f6f6f6;
 `;
 const BtnCon = styled.div`
   /* margin:0 3px; */
@@ -32,6 +29,10 @@ const Btn = styled.button`
   background-color: #d9d9d9;
   border-radius: 5px;
   color: #5b5b5b;
+`;
+
+const EachTitle = styled.div`
+  font-weight: 500;
 `;
 
 //사진 다중업로드
@@ -102,7 +103,6 @@ const ItemDetails = (props) => {
         <label>
           파일 업로드
           <input
-            className="openjoin_input"
             type="file"
             accept="image/*"
             multiple="multiple"
@@ -111,7 +111,6 @@ const ItemDetails = (props) => {
           />
         </label>
       </MyBtn>
-
       {attachment && fileDataList !== "" && (
         <>
           {fileDataList.map((file, index) => (
@@ -125,15 +124,24 @@ const ItemDetails = (props) => {
               </div>
             </div>
           ))}
-          <Btn onClick={onClearAttachment}>&nbsp;&nbsp;X&nbsp;&nbsp;</Btn>
+          <button className="default_Btn" onClick={onClearAttachment}>
+            Clear
+          </button>
         </>
       )}
+      <EachTitle style={{ marginTop: "15px" }}>✨ 상품 상세 설명</EachTitle>
       <input
         id="explain"
         className="openjoin_input"
         value={explain}
         type="textarea"
-        style={{ margin: "3px 0 0" }}
+        style={{
+          width: "100%",
+          objectFit: "contain",
+          borderRadius: "13px",
+          border: "solid 1px #dedede",
+          backgroundColor: "#fff",
+        }}
         onChange={onChange}
         placeholder="상세 설명을 적어주세요"
         maxLength={300}
