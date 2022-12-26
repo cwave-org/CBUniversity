@@ -12,7 +12,7 @@ const JoinDone = () => {
         padding: "20px",
         backgroundColor: " rgb(255, 255, 255)",
         borderRadius: "10px",
-        marginTop: "120px",
+        marginTop: "80px",
       }}
     >
       폼 제출이 완료됐습니다.

@@ -5,6 +5,7 @@ import Myscrap from "../components/Myscrap";
 import Myjoinlist from "../components/Myjoinlist";
 import MyQnA from "../components/MyQnA";
 import Footer from "../components/Footer";
+import Swal from "sweetalert2";
 
 const Profile = ({ userObj, listObj, refreshUser }) => {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -44,7 +45,7 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    
+
     // dbService.doc(`user/${userObj.uid}`).get(userObj);
     if (userObj.displayName !== newDisplayName) {
       const IDcheck = await dbService
@@ -53,10 +54,10 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
         .get();
       if (IDcheck.docs.length == 0 && newDisplayName.length > 0) {
         //user에 업로드
-    await dbService.doc(`user/${userObj.uid}`).set({
-      displayName: userObj.displayName,
-      uid: userObj.uid,
-    });
+        await dbService.doc(`user/${userObj.uid}`).set({
+          displayName: userObj.displayName,
+          uid: userObj.uid,
+        });
         await userObj.updateProfile({
           displayName: newDisplayName,
         });
@@ -64,17 +65,26 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
         await dbService.doc(`user/${userObj.uid}`).update({
           displayName: newDisplayName,
         });
-        alert("닉네임 변경완료!");
-      }
-      else{
+        Swal.fire({
+          icon: "success",
+          confirmButtonColor: "#1f54c0",
+          text: "닉네임 변경완료!",
+        });
+      } else {
         if (newDisplayName.length != 0)
-        alert("중복된 닉네임입니다.");
+          Swal.fire({
+            icon: "error",
+            confirmButtonColor: "#1f54c0",
+            text: "중복된 닉네임입니다.",
+          });
       }
+    } else {
+      Swal.fire({
+        icon: "error",
+        confirmButtonColor: "#1f54c0",
+        text: "같은 닉네임입니다.",
+      });
     }
-    else {
-        alert("같은 닉네임입니다.");
-    }
-
   };
 
   return (
@@ -88,10 +98,9 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
               type="text"
               placeholder="닉네임"
               value={newDisplayName}
-            /> &nbsp;
-            <button>
-              닉네임 변경하기
-            </button>
+            />{" "}
+            &nbsp;
+            <button>닉네임 변경하기</button>
           </div>
         </form>
       </div>
@@ -160,7 +169,7 @@ const Profile = ({ userObj, listObj, refreshUser }) => {
           ))}
         </div>
       </div>
-      <Footer userObj={userObj} option={"profile"}/>
+      <Footer userObj={userObj} option={"profile"} />
     </div>
   );
 };

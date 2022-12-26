@@ -4,6 +4,7 @@ import SellingItem from "./SellingItem";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import EachDetail from "./SOOM/EachDetail";
+import Swal from "sweetalert2";
 
 const Load = styled.div`
   width: 100%;
@@ -22,7 +23,6 @@ const LoadImg = styled.div`
   /* width:30%; */
 `;
 
-
 const Box = styled.div`
   /* border: 2px solid #d9d9d9; */
   /* background-color: #F6F6F6; */
@@ -33,8 +33,8 @@ const Button = styled.button`
   position: absolute;
   bottom: 20px;
   right: 50px;
-  background-color: #d9d9d9;
-  color: #5b5b5b;
+  background-color: #b5b5b5;
+  color: white;
   /* left:3px; */
 `;
 const Button1 = styled(Button)`
@@ -46,7 +46,7 @@ const SellingItemFactory = (props) => {
   // const [id,setId]=useState(1);
   const [eachObj, setEachObj] = useState();
 
-  const [loading,isLoading]=useState(false);
+  const [loading, isLoading] = useState(false);
   const [data, setData] = useState([]);
   const [data1, setData1] = useState([]);
   const [items, setItems] = useState([
@@ -91,82 +91,115 @@ const SellingItemFactory = (props) => {
   };
 
   const onClickDone = async () => {
-    var an = window.confirm(
-      "완료를 누르면 각 상품 목록은 더 이상 수정이 불가합니다. 완료하시겠습니까?"
-    );
-    if (an) {
-      onDataSet();
-      isLoading(true);
-      // console.log(data1);
-      for (var i = 0; i < data.length; i++) {
-        let attachmentUrl = "";
-        for (var j = 0; j < data[i].itemDetails.length; j++) {
-          // console.log(data[i].itemDetails);
-          for (var k = 0; k < data1[i].itemDetails[j].beforeurl.length; k++) {
-            //사진 url변경
-            if (data[i].itemDetails[j].beforeurl[k] !== "") {
-              const attachmentRef = storageService
-                .ref()
-                .child(`${props.userObj.uid}/${uuidv4()}`);
-              const response = await attachmentRef.putString(
-                data[i].itemDetails[j].beforeurl[k],
-                "data_url"
-              );
-              attachmentUrl = await response.ref.getDownloadURL();
-              data[i].itemDetails[j].url[k] = attachmentUrl;
-              data[i].itemDetails[j].beforeurl[k] = "";
+    Swal.fire({
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "완료",
+      confirmButtonColor: "#1f54c0",
+      text: "완료를 누르면 각 상품 목록은 더 이상 수정이 불가합니다. 완료하시겠습니까?",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        onDataSet();
+        isLoading(true);
+        // console.log(data1);
+        for (var i = 0; i < data.length; i++) {
+          let attachmentUrl = "";
+          for (var j = 0; j < data[i].itemDetails.length; j++) {
+            // console.log(data[i].itemDetails);
+            for (var k = 0; k < data1[i].itemDetails[j].beforeurl.length; k++) {
+              //사진 url변경
+              if (data[i].itemDetails[j].beforeurl[k] !== "") {
+                const attachmentRef = storageService
+                  .ref()
+                  .child(`${props.userObj.uid}/${uuidv4()}`);
+                const response = await attachmentRef.putString(
+                  data[i].itemDetails[j].beforeurl[k],
+                  "data_url"
+                );
+                attachmentUrl = await response.ref.getDownloadURL();
+                data[i].itemDetails[j].url[k] = attachmentUrl;
+                data[i].itemDetails[j].beforeurl[k] = "";
+              }
             }
           }
         }
+        await dbService
+          .doc(`itemlist/${props.itemID}`)
+          .set({ data })
+          .then(() => {});
+        isLoading(false);
+        getData();
       }
-      await dbService
-        .doc(`itemlist/${props.itemID}`)
-        .set({ data })
-        .then(() => {});
-      isLoading(false);
-      getData();
-    }
+    });
+    // var an = window.confirm(
+    //   "완료를 누르면 각 상품 목록은 더 이상 수정이 불가합니다. 완료하시겠습니까?"
+    // );
+    // if (an) {
+    //   onDataSet();
+    //   isLoading(true);
+    //   // console.log(data1);
+    //   for (var i = 0; i < data.length; i++) {
+    //     let attachmentUrl = "";
+    //     for (var j = 0; j < data[i].itemDetails.length; j++) {
+    //       // console.log(data[i].itemDetails);
+    //       for (var k = 0; k < data1[i].itemDetails[j].beforeurl.length; k++) {
+    //         //사진 url변경
+    //         if (data[i].itemDetails[j].beforeurl[k] !== "") {
+    //           const attachmentRef = storageService
+    //             .ref()
+    //             .child(`${props.userObj.uid}/${uuidv4()}`);
+    //           const response = await attachmentRef.putString(
+    //             data[i].itemDetails[j].beforeurl[k],
+    //             "data_url"
+    //           );
+    //           attachmentUrl = await response.ref.getDownloadURL();
+    //           data[i].itemDetails[j].url[k] = attachmentUrl;
+    //           data[i].itemDetails[j].beforeurl[k] = "";
+    //         }
+    //       }
+    //     }
+    //   }
+    //   await dbService
+    //     .doc(`itemlist/${props.itemID}`)
+    //     .set({ data })
+    //     .then(() => {});
+    //   isLoading(false);
+    //   getData();
+    // }
   };
-  const getData=async()=>{
-      await dbService
-        .doc(`itemlist/${props.itemID}`)
-        .get()
-        .then((doc) => {
-          // console.log(doc.data());
-          setEachObj(doc.data().data.reverse());
-        });
-        isSubmit(true);
+  const getData = async () => {
+    await dbService
+      .doc(`itemlist/${props.itemID}`)
+      .get()
+      .then((doc) => {
+        // console.log(doc.data());
+        setEachObj(doc.data().data.reverse());
+      });
+    isSubmit(true);
+  };
 
-  };
-  
-  const onDataSet=()=>{
-    props.click[props.id]=true;
+  const onDataSet = () => {
+    props.click[props.id] = true;
   };
 
   return (
     <Box>
-      {loading&&
+      {loading && (
         <Load>
           <LoadImg>
             <img src="img/loading.svg" alt="로딩" />
           </LoadImg>
         </Load>
-      }{
-        submit?(
-            <EachDetail eachObj={eachObj} />
-        ):(
-          <>
-            {items}
-            <Button className="default_Btn_Left" onClick={addItem}>
-              상품 추가
-            </Button>
-            <Button1 className="default_Btn_Right" onClick={onClickDone}>
-              완료
-            </Button1>
-            <br />
-          </>
-        )
-      }
+      )}
+      {submit ? <EachDetail eachObj={eachObj} /> : <>{items}</>}
+      <Button className="default_Btn_Left" onClick={addItem}>
+        상품 추가
+      </Button>
+      <Button1 className="default_Btn_Right" onClick={onClickDone}>
+        완료
+      </Button1>
+      <br />
     </Box>
   );
 };

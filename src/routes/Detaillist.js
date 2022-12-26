@@ -15,6 +15,7 @@ import styled from "styled-components";
 import QnA from "../components/QnA";
 import { useParams } from "react-router-dom";
 import EachDetail from "../components/SOOM/EachDetail";
+import Swal from "sweetalert2";
 
 const Btn = styled.button`
   margin: 5px;
@@ -117,11 +118,23 @@ const Detaillist = ({ userObj }) => {
     });
   };
   const onFinishClick = () => {
-    var done = window.confirm("정말로 공구를 마감하시겠습니까?");
-    if (done) {
-      // event.preventDefault();
-      dbService.collection("startlist").doc(id).update({ done: true });
-    }
+    Swal.fire({
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "마감",
+      confirmButtonColor: "#1f54c0",
+      text: "정말로 공구를 마감하시겠습니까?",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dbService.collection("startlist").doc(id).update({ done: true });
+      }
+    });
+    // var done = window.confirm("정말로 공구를 마감하시겠습니까?");
+    // if (done) {
+    //   // event.preventDefault();
+    //   dbService.collection("startlist").doc(id).update({ done: true });
+    // }
   };
   const onShowlistClick = () => {
     navigate("/itemlist", {
@@ -135,68 +148,138 @@ const Detaillist = ({ userObj }) => {
 
   // Delete Cobuying Item
   const onDeleteClick = async () => {
-    const ok = window.confirm("정말 공구를 삭제하실 건가요?");
-    if (ok) {
-      navigate("/");
-      async function deleteCollection(dbService, collectionPath) {
-        const collectionRef = dbService.collection(collectionPath);
-        const query = collectionRef;
-        //debugger
-        return new Promise((resolve, reject) => {
-          deleteQueryBatch(dbService, query, resolve).catch(reject);
-        });
-      }
-
-      async function deleteCollection2(dbService, collectionPath) {
-        const collectionRef = dbService.collection(collectionPath);
-        const query = collectionRef;
-        //debugger
-        return new Promise((resolve, reject) => {
-          deleteQueryBatch(dbService, query, resolve).catch(reject);
-        });
-      }
-
-      async function deleteQueryBatch(dbService, query, resolve) {
-        const snapshot = await query.get();
-
-        const batchSize = snapshot.size;
-        if (batchSize === 0) {
-          // When there are no documents left, we are done
-          resolve();
-          return;
+    Swal.fire({
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "삭제",
+      confirmButtonColor: "#1f54c0",
+      text: "정말 공구를 삭제하실 건가요?",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        navigate("/");
+        async function deleteCollection(dbService, collectionPath) {
+          const collectionRef = dbService.collection(collectionPath);
+          const query = collectionRef;
+          //debugger
+          return new Promise((resolve, reject) => {
+            deleteQueryBatch(dbService, query, resolve).catch(reject);
+          });
         }
 
-        // Delete documents in a batch
-        const batch = dbService.batch();
-        snapshot.docs.forEach((doc) => {
-          batch.delete(doc.ref);
-        });
-        await batch.commit();
+        async function deleteCollection2(dbService, collectionPath) {
+          const collectionRef = dbService.collection(collectionPath);
+          const query = collectionRef;
+          //debugger
+          return new Promise((resolve, reject) => {
+            deleteQueryBatch(dbService, query, resolve).catch(reject);
+          });
+        }
 
-        // Recurse on the next process tick, to avoid
-        // exploding the stack.
-        process.nextTick(() => {
-          deleteQueryBatch(dbService, query, resolve);
-        });
+        async function deleteQueryBatch(dbService, query, resolve) {
+          const snapshot = await query.get();
+
+          const batchSize = snapshot.size;
+          if (batchSize === 0) {
+            // When there are no documents left, we are done
+            resolve();
+            return;
+          }
+
+          // Delete documents in a batch
+          const batch = dbService.batch();
+          snapshot.docs.forEach((doc) => {
+            batch.delete(doc.ref);
+          });
+          await batch.commit();
+
+          // Recurse on the next process tick, to avoid
+          // exploding the stack.
+          process.nextTick(() => {
+            deleteQueryBatch(dbService, query, resolve);
+          });
+        }
+
+        //await dbService.doc(`startlist/${id}`).delete();
+        deleteCollection(
+          dbService,
+          `startlist/${id}/QnA/${qnaObj.creatorId}/comments`
+        );
+        await dbService
+          .doc(`startlist/${id}`)
+          .collection("QnA")
+          .doc(`${qnaObj.creatorId}`)
+          .delete();
+
+        deleteCollection2(dbService, `startlist/${id}/QnA`);
+        await dbService.doc(`startlist/${id}`).delete();
+
+        deleteCollection2(dbService, `startlist/${id}/scrap`);
+        await dbService.doc(`startlist/${id}`).delete();
       }
+    });
+    //const ok = window.confirm("정말 공구를 삭제하실 건가요?");
+    // if (ok) {
+    //   navigate("/");
+    //   async function deleteCollection(dbService, collectionPath) {
+    //     const collectionRef = dbService.collection(collectionPath);
+    //     const query = collectionRef;
+    //     //debugger
+    //     return new Promise((resolve, reject) => {
+    //       deleteQueryBatch(dbService, query, resolve).catch(reject);
+    //     });
+    //   }
 
-      //await dbService.doc(`startlist/${id}`).delete();
-      deleteCollection(
-        dbService,
-        `startlist/${id}/QnA/${qnaObj.creatorId}/comments`
-      );
-      await dbService
-        .doc(`startlist/${id}`)
-        .collection("QnA")
-        .doc(`${qnaObj.creatorId}`)
-        .delete();
+    //   async function deleteCollection2(dbService, collectionPath) {
+    //     const collectionRef = dbService.collection(collectionPath);
+    //     const query = collectionRef;
+    //     //debugger
+    //     return new Promise((resolve, reject) => {
+    //       deleteQueryBatch(dbService, query, resolve).catch(reject);
+    //     });
+    //   }
 
-      deleteCollection2(dbService, `startlist/${id}/QnA`);
-      await dbService.doc(`startlist/${id}`).delete();
+    //   async function deleteQueryBatch(dbService, query, resolve) {
+    //     const snapshot = await query.get();
 
-      deleteCollection2(dbService, `startlist/${id}/scrap`);
-      await dbService.doc(`startlist/${id}`).delete();
-    }
+    //     const batchSize = snapshot.size;
+    //     if (batchSize === 0) {
+    //       // When there are no documents left, we are done
+    //       resolve();
+    //       return;
+    //     }
+
+    //     // Delete documents in a batch
+    //     const batch = dbService.batch();
+    //     snapshot.docs.forEach((doc) => {
+    //       batch.delete(doc.ref);
+    //     });
+    //     await batch.commit();
+
+    //     // Recurse on the next process tick, to avoid
+    //     // exploding the stack.
+    //     process.nextTick(() => {
+    //       deleteQueryBatch(dbService, query, resolve);
+    //     });
+    //   }
+
+    //   //await dbService.doc(`startlist/${id}`).delete();
+    //   deleteCollection(
+    //     dbService,
+    //     `startlist/${id}/QnA/${qnaObj.creatorId}/comments`
+    //   );
+    //   await dbService
+    //     .doc(`startlist/${id}`)
+    //     .collection("QnA")
+    //     .doc(`${qnaObj.creatorId}`)
+    //     .delete();
+
+    //   deleteCollection2(dbService, `startlist/${id}/QnA`);
+    //   await dbService.doc(`startlist/${id}`).delete();
+
+    //   deleteCollection2(dbService, `startlist/${id}/scrap`);
+    //   await dbService.doc(`startlist/${id}`).delete();
+    // }
     //await storageService.refFromURL(itemObj.attachmentUrl).delete();
   };
 
@@ -457,7 +540,7 @@ const Detaillist = ({ userObj }) => {
           <img
             id="rotating_img"
             width="80%"
-            src="img/logo4.png"
+            src="img/loading.gif"
             alt="로딩"
           ></img>
         </div>

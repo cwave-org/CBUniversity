@@ -5,12 +5,13 @@ import { dbService } from "../fbase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 const Buydetaillist = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const {detailObj} = location.state;
-  const {sellObj} = location.state;
+  const { detailObj } = location.state;
+  const { sellObj } = location.state;
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(detailObj.name);
   const [phonenumber, setPhonenumber] = useState(detailObj.phonenumber);
@@ -25,8 +26,8 @@ const Buydetaillist = () => {
   const [today, setToday] = useState(new Date());
   const [randomidx, setRandomidx] = useState(detailObj.randomidx);
   const [itemdeadline, setItemdeadline] = useState(new Date());
-  
-  var dates = sellObj.dates
+
+  var dates = sellObj.dates;
 
   const handout = (event, date, i) => {
     setHandout_date(date);
@@ -103,25 +104,52 @@ const Buydetaillist = () => {
   const toggleEditing = () => setEditing((prev) => !prev);
 
   const onSubmit = async (event) => {
-    var answer = window.confirm("정말로 수정하시겠습니까?");
-    if (answer) {
-      event.preventDefault();
-      setEditing(false);
-      await dbService.doc(`joinlist/${detailObj.id}`).update({
-        /* name: name,
-        count: count,
-        size: size,
-        address: address,
-        account_date: account_name,
-        account_name: account_date,*/
-        phonenumber: phonenumber,
-        account_re: account_re,
-        handout_date: handout_date,
-      });
-      // window.location.reload();
-    } else {
-      event.preventDefault();
-    }
+    Swal.fire({
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "수정",
+      confirmButtonColor: "#1f54c0",
+      text: "정말로 수정하시겠습니까?",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        event.preventDefault();
+        setEditing(false);
+        await dbService.doc(`joinlist/${detailObj.id}`).update({
+          /* name: name,
+          count: count,
+          size: size,
+          address: address,
+          account_date: account_name,
+          account_name: account_date,*/
+          phonenumber: phonenumber,
+          account_re: account_re,
+          handout_date: handout_date,
+        });
+        // window.location.reload();
+      } else if (result.isDismissed) {
+        event.preventDefault();
+      }
+    });
+    // var answer = window.confirm("정말로 수정하시겠습니까?");
+    // if (answer) {
+    //   event.preventDefault();
+    //   setEditing(false);
+    //   await dbService.doc(`joinlist/${detailObj.id}`).update({
+    //     /* name: name,
+    //     count: count,
+    //     size: size,
+    //     address: address,
+    //     account_date: account_name,
+    //     account_name: account_date,*/
+    //     phonenumber: phonenumber,
+    //     account_re: account_re,
+    //     handout_date: handout_date,
+    //   });
+    //   // window.location.reload();
+    // } else {
+    //   event.preventDefault();
+    // }
   };
 
   const onChange = (event) => {
@@ -144,7 +172,7 @@ const Buydetaillist = () => {
       setAccount_date(value);
     } else if (event.target.id === "accountre") {
       setAccount_re(value);
-    } 
+    }
   };
 
   return (
@@ -177,24 +205,29 @@ const Buydetaillist = () => {
 
               <EachContainer>
                 <EachTitle>✔️ 현장배부 날짜</EachTitle>
-                <EachDetail>
-                  {dates.slice(0).reverse().map((date, i) => (
-                    <SelectNum key={i}>
-                      {i + 1}. {date.handout_date}
-                      <NumBox>
-                        <Btn1
-                          onClick={(event) => handout(event, date.handout_date, i)}
-                        >
-                          <input
-                            type="radio"
-                            value={date.handout_date}
-                            name="handout_date"
-                          />
-                        </Btn1>
-                      </NumBox>
-                    </SelectNum>
-                  ))}
-                </EachDetail>
+                <EachDetail_white>
+                  {dates
+                    .slice(0)
+                    .reverse()
+                    .map((date, i) => (
+                      <SelectNum key={i}>
+                        {i + 1}. {date.handout_date}
+                        <NumBox>
+                          <Btn1
+                            onClick={(event) =>
+                              handout(event, date.handout_date, i)
+                            }
+                          >
+                            <input
+                              type="radio"
+                              value={date.handout_date}
+                              name="handout_date"
+                            />
+                          </Btn1>
+                        </NumBox>
+                      </SelectNum>
+                    ))}
+                </EachDetail_white>
               </EachContainer>
 
               <EachContainer>
@@ -251,7 +284,7 @@ const Buydetaillist = () => {
           </>
         </div>
       ) : (
-        <div className="openjoin_container">
+        <div className="openjoin_container_submitted">
           <p className="my_title">💙폼 제출 내용💙</p>
           <hr />
           <EachContainer>
@@ -329,6 +362,12 @@ const EachTitle = styled.div`
 `;
 const EachDetail = styled.div`
   margin-top: 1px;
+`;
+const EachDetail_white = styled.div`
+  margin-top: 1px;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 13px;
 `;
 const SelectNum = styled.div`
   border-radius: 5px;

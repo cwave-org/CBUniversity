@@ -6,10 +6,11 @@ import SellingItemFactory from "../components/SellingItemFactory";
 import styled from "styled-components";
 import DateFactory from "../components/DateFactory";
 import DateItem from "../components/DateItem";
+import Swal from "sweetalert2";
 
 const EachContainer = styled.div`
   width: 100%;
-  margin: 3px 3px 15px;
+  margin: 3px 0px 0px 0px;
 `;
 const EachTitle = styled.div`
   font-weight: 600;
@@ -45,15 +46,25 @@ const Notice2 = styled.div`
 const Box = styled.div`
   position: relative;
   border-radius: 10px;
+  padding-bottom: 25px;
 `;
 const Button = styled.button`
   position: absolute;
-  bottom: 0px;
-  right: 50px;
-  background-color: #d9d9d9;
-  color: #5b5b5b;
+  bottom: -px;
+  right: 3px;
+  background-color: #b5b5b5;
+  color: white;
 `;
-
+const MyBtn = styled.div`
+  width: fit-content;
+  margin: 5px 3px 3px;
+  padding: 0 5px;
+  text-align: center;
+  height: 10%;
+  background-color: #b5b5b5;
+  color: white;
+  border-radius: 5px;
+`;
 const SellingForm = ({ userObj }) => {
   const [itemname, setItemname] = useState("");
   const [name, setName] = useState("");
@@ -102,7 +113,7 @@ const SellingForm = ({ userObj }) => {
       attachmentUrl = await response.ref.getDownloadURL();
     }
     const listObj = {
-      randomidx: itemID, 
+      randomidx: itemID,
       name: name, // 공대표 이름 추가
       itemname: itemname,
       deadline: deadline,
@@ -189,29 +200,47 @@ const SellingForm = ({ userObj }) => {
   const onClearAttachment = () => setAttachment(null);
   const onCheckForm = () => {
     if (click[click.length - 1]) {
-      var result = window.confirm("정말로 폼을 제출하시겠습니까?");
-      if (result) {
-        onFormSubmit();
-      }
+      Swal.fire({
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "취소",
+        confirmButtonText: "제출",
+        confirmButtonColor: "#1f54c0",
+        text: "정말로 폼을 제출하시겠습니까?",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          onFormSubmit();
+        }
+      });
+      // var result = window.confirm("정말로 폼을 제출하시겠습니까?");
+      // if (result) {
+      //   onFormSubmit();
+      // }
     } else if (click[click.length - 1] === false) {
-      window.alert("상품추가 완료버튼을 눌러주셔야 제출 가능합니다");
+      Swal.fire({
+        icon: "error",
+        confirmButtonColor: "#1f54c0",
+        text: "상품추가 완료버튼을 눌러주셔야 제출 가능합니다.",
+      });
     }
     // } else if (!clickeddate) {
     //   window.alert("현장배부 날짜추가 완료버튼을 눌러주셔야 제출 가능합니다");
     // }
   };
-  const onClickAddDate = () =>{
-    setDateId(dateId+1);
-    setDates(dates.concat(
-      <DateItem
-        key={id+1}
-        id={id+1}
-        setData={setData}
-        data={data}
-        uid={userObj.uid}
-      />
-    ));
-  }
+  const onClickAddDate = () => {
+    setDateId(dateId + 1);
+    setDates(
+      dates.concat(
+        <DateItem
+          key={id + 1}
+          id={id + 1}
+          setData={setData}
+          data={data}
+          uid={userObj.uid}
+        />
+      )
+    );
+  };
 
   return (
     <form className="openjoin_container">
@@ -250,12 +279,18 @@ const SellingForm = ({ userObj }) => {
       <EachContainer>
         <EachTitle>✔️ 상품 대표사진</EachTitle>
         <Detail1>
-          <input
-            className="openjoin_input"
-            type="file"
-            accept="image/*"
-            onChange={onFileChange}
-          />
+          <MyBtn>
+            <label>
+              파일 업로드
+              <input
+                type="file"
+                accept="image/*"
+                multiple="multiple"
+                onChange={onFileChange}
+                style={{ visibility: "hidden", width: "0px" }}
+              />
+            </label>
+          </MyBtn>
           {attachment && (
             <div className="attatchment">
               <img src={attachment} alt="대표사진" />
@@ -363,7 +398,6 @@ const SellingForm = ({ userObj }) => {
                 날짜 추가
               </Button>
             </Box>
-            
           </EachDetail>
         </EachContainer>
       )}
@@ -417,7 +451,6 @@ const SellingForm = ({ userObj }) => {
           setClicked={setClicked}
         />
       </EachContainer>
-
       <div>
         <button className="default_Btn_Right2" onClick={onCancel}>
           취소

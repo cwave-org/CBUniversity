@@ -19,7 +19,7 @@ body {
 
 .container {
   padding: 10px;
-  margin-top: 30px;
+  margin-top: 70px;
   margin-bottom: 50px;
   border-radius: 20px;
   width: 50%;
@@ -163,36 +163,41 @@ button {
   margin-bottom: 0px;
   border-radius: 5px;
   float: right;
+  color: white;
+  background-color: #407fff;
 }
 .default_Btn_Right2 {
-  margin: 5px;
-  padding: 10px;
+  margin: 3px;
+  padding: 5px 15px;
   margin-top: 0px;
   margin-bottom: 0px;
   border-radius: 5px;
   float: right;
+  color: white;
+  background-color: #407fff;
 }
 .default_Btn_Right_Bottom {
   position: absolute;
   bottom: 0;
   margin: 0px;
+  padding: 5px 15px;
   font-size: 10px;
   /* padding: 2px; */
-  background-color: #d9d9d9;
-  color: #5b5b5b;
+  background-color: #b5b5b5;
   border-radius: 5px;
   /* float: right; */
+  color: white;
 }
 
 .delete_Img_Btn {
   position: absolute;
   bottom: 110px;
-  right:15px;
+  right: 15px;
   margin: 5px;
   font-size: 15px;
   width: fit-content;
-  background-color: #d9d9d9;
-  color: #5b5b5b;
+  background-color: #b5b5b5;
+  color: white;
   border-radius: 5px;
   /* float: right; */
   /* height: 20%; */
@@ -204,6 +209,8 @@ button {
   margin-bottom: 0px;
   border-radius: 5px;
   float: left;
+  background-color: #b5b5b5;
+  color: white;
 }
 
 .default_Btn_Center {
@@ -211,6 +218,8 @@ button {
   margin-top: 0px;
   margin-bottom: 0px;
   border-radius: 5px;
+  background-color: #b5b5b5;
+  color: white;
 }
 
 .qna_input {
