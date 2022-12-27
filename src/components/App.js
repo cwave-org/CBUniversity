@@ -17,19 +17,19 @@ function App() {
           updateProfile: (args) => user.updateProfile(args),
         });
 
-        var email = user.email;
-        var emailIndex = email.indexOf("@") + 1;
-        var emailform = email.substring(emailIndex);
-        if (emailform !== "sookmyung.ac.kr") {
-          deleteUser(user);
-          setUserObj(null);
-          Swal.fire({
-            icon: "error",
-            confirmButtonColor: "#1f54c0",
-            text: "숙명 메일로만 로그인이 가능합니다.",
-          });
-        } else {
-        }
+        // var email = user.email;
+        // var emailIndex = email.indexOf("@") + 1;
+        // var emailform = email.substring(emailIndex);
+        // if (emailform !== "sookmyung.ac.kr") {
+        //   deleteUser(user);
+        //   setUserObj(null);
+        //   Swal.fire({
+        //     icon: "error",
+        //     confirmButtonColor: "#1f54c0",
+        //     text: "숙명 메일로만 로그인이 가능합니다.",
+        //   });
+        // } else {
+        // }
       } else {
         setUserObj(null);
       }
